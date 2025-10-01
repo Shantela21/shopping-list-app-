@@ -1,13 +1,10 @@
-import React from 'react'
-
-import { useAppSelector, useAppDispatch } from '../../reduxHooks.ts'
+import { useAppSelector } from '../../reduxHooks'
 
 export default function Login() {
-    const email = useAppSelector((state) => state.login.email)
-  const dispatch = useAppDispatch()
+  const email = useAppSelector((state) => state.login.email)
   return (
     <div>
-      Apple
+      {email}
     </div>
   )
 }

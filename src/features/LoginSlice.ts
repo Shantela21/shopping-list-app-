@@ -6,8 +6,8 @@ interface LoginState {
 }
 
 const initialState: LoginState = {
-    email: 'dlozi@mlab.com',
-    password: '12345',
+    email: '',
+    password: '',
 };
 
 const LoginSlice = createSlice({
