@@ -6,6 +6,7 @@ import CryptoJS from 'crypto-js'
 import { getUserByEmail } from '../api/users'
 import { setUser } from '../features/RegisterSlice'
 
+
 export default function Login() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -30,15 +31,15 @@ export default function Login() {
     }
     dispatch(setUser(user))
     dispatch(loginSuccess())
-    navigate('/home')
+    navigate('/profile')
   }
 
-  return (
+  return (<>
     <div className="container">
       <h1>Login</h1>
-      <form onSubmit={onSubmit}>
+      <form className='login' onSubmit={onSubmit}>
         <label htmlFor="email"><b>Email</b></label>
-        <input
+        <input className='input-login'
           id="email"
           type="email"
           placeholder="Enter Email"
@@ -65,6 +66,8 @@ export default function Login() {
           Don't have an account? <Link to="/register">Register</Link>
         </p>
       </form>
+       
     </div>
+    </>
   )
 }
