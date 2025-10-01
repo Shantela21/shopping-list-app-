@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../reduxHooks'
 import { register } from '../features/RegisterSlice'
+import CryptoJS from 'crypto-js'
 
 export default function Register() {
   const dispatch = useAppDispatch()
@@ -15,7 +16,10 @@ export default function Register() {
     e.preventDefault()
     // Basic check
     if (!name || !surname || !cell || !email || !password) return
-    dispatch(register({ name, surname, cell, email }))
+    const SECRET = (import.meta as any).env?.VITE_AUTH_SECRET ?? 'dev-secret'
+    const passwordCipher = CryptoJS.AES.encrypt(password, SECRET).toString()
+    dispatch(register({ name, surname, cell, email, passwordCipher }))
+    setPassword('')
   }
 
   return (
@@ -86,13 +90,14 @@ export default function Register() {
           {isRegistered && (
             <p role="status">Registration successful!</p>
           )}
-        </div>
-
-        <div className="container signin">
           <p>
-            Already have an account? <a href="#">Sign in</a>.
+            Already have an account? <a href="/login">Sign in</a>.
           </p>
         </div>
+
+        
+          
+       
       </form>
     </div>
   )
