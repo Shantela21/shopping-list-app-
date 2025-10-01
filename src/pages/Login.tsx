@@ -1,37 +1,36 @@
 import { useState, type FormEvent } from 'react'
-import { useAppDispatch, useAppSelector } from '../../reduxHooks'
+import { useAppDispatch } from '../../reduxHooks'
 import { loginSuccess } from '../features/RegisterSlice'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import CryptoJS from 'crypto-js'
+import { getUserByEmail } from '../api/users'
+import { setUser } from '../features/RegisterSlice'
 
 export default function Login() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const registered = useAppSelector((s) => s.register.user)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(null)
-    if (!registered) {
+    const user = await getUserByEmail(email)
+    if (!user) {
       setError('No registered user found. Please register first.')
       return
     }
-    if (registered.email !== email) {
-      setError('Invalid credentials')
-      return
-    }
     const SECRET = (import.meta as any).env?.VITE_AUTH_SECRET ?? 'dev-secret'
-    const bytes = CryptoJS.AES.decrypt(registered.passwordCipher, SECRET)
+    const bytes = CryptoJS.AES.decrypt(user.passwordCipher, SECRET)
     const plain = bytes.toString(CryptoJS.enc.Utf8)
     if (plain !== password) {
       setError('Invalid credentials')
       return
     }
+    dispatch(setUser(user))
     dispatch(loginSuccess())
-    navigate('/')
+    navigate('/home')
   }
 
   return (
@@ -61,6 +60,10 @@ export default function Login() {
         {error && <p role="alert" style={{ color: 'red' }}>{error}</p>}
 
         <button type="submit">Login</button>
+
+        <p style={{ marginTop: 12 }}>
+          Don't have an account? <Link to="/register">Register</Link>
+        </p>
       </form>
     </div>
   )

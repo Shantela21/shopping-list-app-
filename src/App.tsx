@@ -19,11 +19,11 @@ function App() {
         </Route>
 
         <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
-
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/" element={<Navigate to="/home" replace />} />
+        <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
       <Footer />
     </>

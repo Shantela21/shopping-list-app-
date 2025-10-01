@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../reduxHooks'
 import { register } from '../features/RegisterSlice'
 import CryptoJS from 'crypto-js'
+import { createUser, getUserByEmail, type UserDTO } from '../api/users'
 
 export default function Register() {
   const dispatch = useAppDispatch()
@@ -11,15 +12,29 @@ export default function Register() {
   const [cell, setCell] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState<string | null>(null)
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // Basic check
+    setError(null)
     if (!name || !surname || !cell || !email || !password) return
-    const SECRET = (import.meta as any).env?.VITE_AUTH_SECRET ?? 'dev-secret'
-    const passwordCipher = CryptoJS.AES.encrypt(password, SECRET).toString()
-    dispatch(register({ name, surname, cell, email, passwordCipher }))
-    setPassword('')
+    try {
+      // prevent duplicate emails
+      const existing = await getUserByEmail(email)
+      if (existing) {
+        setError('Email is already registered. Please log in.')
+        return
+      }
+      const SECRET = (import.meta as any).env?.VITE_AUTH_SECRET ?? 'dev-secret'
+      const passwordCipher = CryptoJS.AES.encrypt(password, SECRET).toString()
+      const payload: UserDTO = { name, surname, cell, email, passwordCipher }
+      const saved = await createUser(payload)
+      dispatch(register(saved))
+      setPassword('')
+    } catch (err: any) {
+      const msg = err?.response?.data || err?.message || 'Unknown error'
+      setError(`Failed to register. ${String(msg)}`)
+    }
   }
 
   return (
@@ -90,6 +105,7 @@ export default function Register() {
           {isRegistered && (
             <p role="status">Registration successful!</p>
           )}
+          {error && <p role="alert" style={{ color: 'red' }}>{error}</p>}
           <p>
             Already have an account? <a href="/login">Sign in</a>.
           </p>

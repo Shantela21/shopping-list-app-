@@ -28,6 +28,9 @@ const RegisterSlice = createSlice({
       state.user = action.payload
       state.isRegistered = true
     },
+    setUser: (state, action: { payload: RegisteredUser | null }) => {
+      state.user = action.payload
+    },
     loginSuccess: (state) => {
       state.isAuthenticated = true
     },
@@ -45,5 +48,5 @@ const RegisterSlice = createSlice({
   },
 })
 
-export const { register, loginSuccess, logout, updateProfile, updateCredentials } = RegisterSlice.actions
+export const { register, setUser, loginSuccess, logout, updateProfile, updateCredentials } = RegisterSlice.actions
 export default RegisterSlice.reducer
