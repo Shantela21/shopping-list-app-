@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import LoginSlice from './src/features/LoginSlice';
-import Register from './src/pages/Register';
+import loginReducer from './src/features/LoginSlice';
+import registerReducer from './src/features/RegisterSlice';
 
 export const store = configureStore({
   reducer: {
-    login: LoginSlice,
-    register: Register,
+    login: loginReducer,
+    register: registerReducer,
     // Add other reducers here
   },
 });

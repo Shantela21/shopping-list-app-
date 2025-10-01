@@ -1,1 +1,12 @@
-{}
+{
+  "users": [
+    {
+      "id": "e99f",
+      "name": "Shantela",
+      "surname": "Noyila",
+      "cell": "0791881002",
+      "email": "shantelaslie@gmail.com",
+      "passwordCipher": "U2FsdGVkX1/R2PA+qjYooCRwKGphN3CA0dxmRYicw5U="
+    }
+  ]
+}
