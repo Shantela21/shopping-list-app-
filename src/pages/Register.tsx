@@ -39,14 +39,14 @@ export default function Register() {
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="register-form">
         <div className="container">
           <h1>Register</h1>
           <p>Please fill in this form to create an account.</p>
           <hr />
 
           <label htmlFor="name"><b>Name</b></label>
-          <input
+          <input className='input-login'
             type="text"
             placeholder="Enter Name"
             id="name"
@@ -56,7 +56,7 @@ export default function Register() {
           />
 
           <label htmlFor="surname"><b>Surname</b></label>
-          <input
+          <input className='input-login'
             type="text"
             placeholder="Enter Surname"
             id="surname"
@@ -66,7 +66,7 @@ export default function Register() {
           />
 
           <label htmlFor="cell"><b>Cell number</b></label>
-          <input
+          <input className='input-login'
             type="tel"
             placeholder="Enter Cell Number"
             id="cell"
@@ -76,7 +76,7 @@ export default function Register() {
           />
 
           <label htmlFor="email"><b>Email</b></label>
-          <input
+          <input className='input-login'
             type="email"
             placeholder="Enter Email"
             id="email"
@@ -86,7 +86,7 @@ export default function Register() {
           />
 
           <label htmlFor="psw"><b>Password</b></label>
-          <input
+          <input className='input-login'
             type="password"
             placeholder="Enter Password"
             id="psw"
@@ -106,7 +106,7 @@ export default function Register() {
             <p role="status">Registration successful!</p>
           )}
           {error && <p role="alert" style={{ color: 'red' }}>{error}</p>}
-          <p>
+          <p className='signin'>
             Already have an account? <a href="/login">Sign in</a>.
           </p>
         </div>

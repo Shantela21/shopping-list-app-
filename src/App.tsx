@@ -7,6 +7,9 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { ProtectedRoute, PublicOnlyRoute } from './components/ProtectedRoute'
+import Privacy from "./pages/Privacy";
+import EditProfile from "./pages/EditProfile";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -21,12 +24,18 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/edit" element={<EditProfile />} />
         </Route>
         <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route path="*" element={<Navigate to="/home" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/about" element={<div>About Page</div>} />
+        <Route path="/contact" element={<div>Contact Page</div>} />
+        <Route path="/privacy" element={<Privacy/>} />
+        <Route path="/terms" element={<div>Terms and Conditions Page</div>} />
       </Routes>
-     <Footer />
+      <Footer />
     </>
   );
 }
 export default App;
+

@@ -36,8 +36,9 @@ export default function Login() {
 
   return (<>
     <div className="container">
-      <h1>Login</h1>
+      
       <form className='login' onSubmit={onSubmit}>
+        <h1>Login</h1>
         <label htmlFor="email"><b>Email</b></label>
         <input className='input-login'
           id="email"
@@ -49,7 +50,7 @@ export default function Login() {
         />
 
         <label htmlFor="password"><b>Password</b></label>
-        <input
+        <input className='input-login'
           id="password"
           type="password"
           placeholder="Enter Password"
