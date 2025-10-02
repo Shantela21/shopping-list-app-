@@ -126,6 +126,44 @@ a:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
 }
+
+.profile-title{
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  color: #333;
+}
+.profile-summary {
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: left;
+}
+.profile-summary h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+.edit-profile-btn{
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #87cefa;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.edit-profile-btn:hover {
+  background-color: #00bfff;
+  color: white;
+}
+
 /* .login-form {
   display: flex;
   flex-direction: column;
@@ -142,6 +180,259 @@ a:hover {
   border-radius: 5px;
   font-size: 16px;
 } */
+
+.privacy-policy{
+  max-width: 900px; 
+  margin: 0 auto; 
+  padding: 2rem 1rem; 
+  line-height: 1.6;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 20px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  
+}
+.privacy-policy-title{
+  margin-bottom: 0.25rem;
+  font-size: bold;
+  text-align: start;
+  color: #333;
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #87cefa;
+  padding-bottom: 10px;
+}
+.privacy-policy-intro{
+  color: #666;
+  margin-bottom: 20px;
+  text-align: justify;
+}
+.information-we-collect, .how-we-use-your-information{
+  margin-bottom: 20px;
+  text-align: justify;
+  color: #666;
+}
+.information-we-collect h2, .how-we-use-your-information h2{
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: start;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #87cefa;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.information-we-collect ul, .how-we-use-your-information ul{
+  list-style-type: disc;
+  padding-left: 20px;
+  color: #555;
+  line-height: 1.6;
+  margin-top: 10px;
+  margin-bottom: 10px;  
+  text-align: justify;
+
+}
+.legal-bases{
+  margin-bottom: 20px;
+  text-align: justify;
+  color: #666;
+}
+.sharing-infor{
+  margin-bottom: 20px;
+  text-align: justify;
+  color: #666;
+}
+.legal-bases h2, .sharing-infor h2{
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+   text-align: start;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #87cefa;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.legal-bases p, .sharing-infor p{
+  color: #555;
+  line-height: 1.6;
+  margin-top: 10px;
+  margin-bottom: 10px;  
+  text-align: justify;
+}
+.data-retention{
+  margin-bottom: 20px;
+  text-align: justify;
+  color: #666;
+}
+.data-retention h2{
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: start;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #87cefa;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.data-retention p{
+  color: #555;
+  line-height: 1.6;
+  margin-top: 10px;
+  margin-bottom: 10px;  
+  text-align: justify;
+}
+.your-rights{
+  margin-bottom: 20px;
+  text-align: justify;
+  color: #666;
+}
+.your-rights h2{
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: start;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #87cefa;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.your-rights ul{
+  list-style-type: disc;
+  padding-left: 20px;
+  color: #555;
+  line-height: 1.6;
+  margin-top: 10px;
+  margin-bottom: 10px;  
+  text-align: justify;}
+
+.childrens-privacy{
+  margin-bottom: 20px;  
+}
+.childrens-privacy h2{
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: start;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #87cefa;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.childrens-privacy p{
+  color: #555;
+  line-height: 1.6;
+  margin-top: 10px;
+  margin-bottom: 10px;  
+  text-align: justify;
+}
+.security{
+  margin-bottom: 20px;
+  text-align: justify;
+  color: #666;
+}
+.security h2{
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: start;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #87cefa;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.security p{
+  color: #555;
+  line-height: 1.6;
+  margin-top: 10px;
+  margin-bottom: 10px;  
+  text-align: justify;
+}
+.international-transfers{
+  margin-bottom: 20px;
+  text-align: justify;
+  color: #666;
+}
+.international-transfers h2{
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: start;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #87cefa; 
+  padding-bottom: 5px;
+  margin-top: 20px;
+}
+.international-transfers p{
+  color: #555;
+  line-height: 1.6;
+  margin-top: 10px;
+  margin-bottom: 10px;  
+  text-align: justify;
+}
+.changes-to-this-policy{
+  margin-bottom: 20px;
+  text-align: justify;
+  color: #666;
+}
+.changes-to-this-policy h2{
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: start;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #87cefa; 
+}
+.contact-us{
+  margin-bottom: 20px;
+  text-align: justify;
+  color: #666;
+}
+.contact-us h2{
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: start;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #87cefa; 
+  padding-bottom: 5px;
+  margin-top: 20px;
+}
+.contact-us p{
+  color: #555;
+  line-height: 1.6;
+  margin-top: 10px;
+  margin-bottom: 10px;  
+  text-align: justify;
+}
+
+
+
+
 .footer-separator{
   border-bottom: 1px solid #ccc;
   

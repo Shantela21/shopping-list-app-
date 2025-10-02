@@ -1,9 +1,9 @@
 export default function Privacy() {
   return (
-    <main style={{ maxWidth: 900, margin: '0 auto', padding: '2rem 1rem', lineHeight: 1.6 }}>
-      <h1 style={{ marginBottom: '0.25rem' }}>Privacy Policy</h1>
-      <p style={{ color: '#666' }}>Last updated: October 2, 2025</p>
-      <section>
+    <main className="privacy-policy" >
+      <h1 className="privacy-policy-title" >Privacy Policy</h1>
+      <p >Last updated: October 2, 2025</p>
+      <section className="privacy-policy-intro" >
         <p>
           This Privacy Policy explains how <strong>Shopping List App</strong> ("we", "us") collects,
           uses, and shares your information when you use our application and related services
@@ -12,7 +12,7 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section>
+      <section className="information-we-collect" >
         <h2>Information We Collect</h2>
         <ul>
           <li>
@@ -34,7 +34,7 @@ export default function Privacy() {
         </ul>
       </section>
 
-      <section>
+      <section className="how-we-use-your-information" >
         <h2>How We Use Your Information</h2>
         <ul>
           <li>Provide, operate, and maintain the Service.</li>
@@ -45,7 +45,7 @@ export default function Privacy() {
         </ul>
       </section>
 
-      <section>
+      <section className="legal-bases">
         <h2>Legal Bases for Processing</h2>
         <p>
           If you are in the EEA/UK, we process personal data where one or more of the following
@@ -55,7 +55,7 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section>
+      <section className="sharing-infor">
         <h2>Sharing of Information</h2>
         <p>
           We do not sell your personal information. We may share information with:
@@ -76,7 +76,7 @@ export default function Privacy() {
         </ul>
       </section>
 
-      <section>
+      <section className="data-retention">
         <h2>Data Retention</h2>
         <p>
           We retain personal information only for as long as necessary to provide the Service and for
@@ -85,7 +85,7 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section>
+      <section className="security">
         <h2>Security</h2>
         <p>
           We implement reasonable technical and organizational measures designed to protect your
@@ -94,7 +94,7 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section>
+      <section className="your-rights">
         <h2>Your Rights and Choices</h2>
         <ul>
           <li>Access, correct, or delete your account information.</li>
@@ -107,7 +107,7 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section>
+      <section className="childrens-privacy">
         <h2>Children’s Privacy</h2>
         <p>
           The Service is not directed to children under 13 (or the age required by local law). We do
@@ -116,7 +116,7 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section>
+      <section className="international-transfers">
         <h2>International Transfers</h2>
         <p>
           Your information may be processed and stored in countries other than your own. Where
@@ -124,7 +124,7 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section>
+      <section className="changes-to-this-policy">
         <h2>Changes to This Policy</h2>
         <p>
           We may update this Privacy Policy from time to time. We will post the updated policy on this
@@ -133,7 +133,7 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section>
+      <section className="contact-us">
         <h2>Contact Us</h2>
         <p>
           If you have questions or concerns about this Privacy Policy or our data practices, contact

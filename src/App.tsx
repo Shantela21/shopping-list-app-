@@ -8,6 +8,7 @@ import Profile from "./pages/Profile";
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { ProtectedRoute, PublicOnlyRoute } from './components/ProtectedRoute'
 import Privacy from "./pages/Privacy";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/edit" element={<EditProfile />} />
         </Route>
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
@@ -35,3 +37,4 @@ function App() {
   );
 }
 export default App;
+
