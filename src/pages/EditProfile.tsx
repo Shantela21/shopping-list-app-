@@ -64,33 +64,33 @@ export default function EditProfile() {
       <h1 className="profile-title">Edit Profile</h1>
 
       <form onSubmit={saveProfile} style={{ marginBottom: 24 }}>
-        <h2>Profile Details</h2>
+        <h2  className='update'>Profile Details</h2>
         <label htmlFor="name"><b>Name</b></label>
-        <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+        <input className='input-login' id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
 
         <label htmlFor="surname"><b>Surname</b></label>
-        <input id="surname" type="text" value={surname} onChange={(e) => setSurname(e.target.value)} required />
+        <input className='input-login' id="surname" type="text" value={surname} onChange={(e) => setSurname(e.target.value)} required />
 
         <label htmlFor="cell"><b>Cell number</b></label>
-        <input id="cell" type="tel" value={cell} onChange={(e) => setCell(e.target.value)} required />
+        <input className='input-login' id="cell" type="tel" value={cell} onChange={(e) => setCell(e.target.value)} required />
 
         <label htmlFor="email"><b>Email</b></label>
-        <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <input className='input-login' id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
 
         <button type="submit">Save profile</button>
         {profSaved && <p role="status">Profile updated</p>}
       </form>
 
       <form onSubmit={saveCredentials}>
-        <h2>Update Password</h2>
+        <h2 className='update'>Update Password</h2>
         <label htmlFor="current"><b>Current password</b></label>
-        <input id="current" type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} required />
+        <input className='input-login' id="current" type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} required />
 
         <label htmlFor="new"><b>New password</b></label>
-        <input id="new" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+        <input className='input-login' id="new" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
 
         <label htmlFor="confirm"><b>Confirm new password</b></label>
-        <input id="confirm" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+        <input className='input-login' id="confirm" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
 
         {credError && <p role="alert" style={{ color: 'red' }}>{credError}</p>}
         <button type="submit">Update password</button>

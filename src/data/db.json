@@ -15,6 +15,14 @@
       "cell": "0871234567",
       "email": "sbo@gmail.com",
       "passwordCipher": "U2FsdGVkX1841YnMzD408uwvch0d34O6lE3v/tqdyLA="
+    },
+    {
+      "id": "ed33",
+      "name": "Dlozi",
+      "surname": "Mthethwa",
+      "cell": "0791881002",
+      "email": "dlozi@mlab.com",
+      "passwordCipher": "U2FsdGVkX1/qpI4KAjdOIfIDV6uxN2yrSyHhr0k/w2w="
     }
   ]
 }

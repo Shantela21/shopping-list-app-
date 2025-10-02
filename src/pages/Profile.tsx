@@ -19,7 +19,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="container">
+    <div className="container-profile">
       <h1 className='profile-title'>Profile</h1>
       <section className="profile-summary" style={{ marginBottom: 24 }}>
         <h2>Your Profile</h2>
