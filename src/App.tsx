@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { ProtectedRoute, PublicOnlyRoute } from './components/ProtectedRoute'
+import Privacy from "./pages/Privacy";
 
 function App() {
   return (
@@ -24,6 +25,10 @@ function App() {
         </Route>
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
+        <Route path="/about" element={<div>About Page</div>} />
+        <Route path="/contact" element={<div>Contact Page</div>} />
+        <Route path="/privacy" element={<Privacy/>} />
+        <Route path="/terms" element={<div>Terms and Conditions Page</div>} />
       </Routes>
      <Footer />
     </>

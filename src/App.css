@@ -142,7 +142,33 @@ a:hover {
   border-radius: 5px;
   font-size: 16px;
 } */
+.footer-separator{
+  border-bottom: 1px solid #ccc;
+  
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  text-align:start;
+  display: flex;
+  align-items: start;
+  flex-direction: row;
+  gap: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+/* .footer-links{
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;  
 
+}  */
 .footer {
   background-color: lightskyblue;
   text-align: center;
