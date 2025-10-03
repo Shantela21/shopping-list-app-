@@ -23,6 +23,14 @@
       "cell": "0987654321",
       "email": "slie@gmail.com",
       "passwordCipher": "U2FsdGVkX1/yKX+r0QS48ccmUKhabC4LV7i+cbJZ7j0="
+    },
+    {
+      "id": "3daf",
+      "name": "Melo",
+      "surname": "Buthelezi",
+      "cell": "0987654321",
+      "email": "melo@gmail.com",
+      "passwordCipher": "U2FsdGVkX1+6NojKArXKyW9RmJcpyBaonAAi5cB4p6E="
     }
   ],
   "shoppingLists": [
@@ -51,6 +59,13 @@
         }
       ],
       "createdAt": "2025-10-03T09:09:28.405Z"
+    },
+    {
+      "id": "bcdd",
+      "name": "Food",
+      "userEmail": "shantelaslie@gmail.com",
+      "items": [],
+      "createdAt": "2025-10-03T10:37:54.598Z"
     }
   ]
 }
