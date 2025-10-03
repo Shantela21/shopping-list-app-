@@ -9,6 +9,7 @@ import {
   renameList,
   selectList,
   updateItem,
+  fetchLists,
 } from '../features/ShoppingSlice'
 import type { ShoppingItem } from '../features/ShoppingSlice'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -44,6 +45,14 @@ export default function Home() {
     [lists, selectedListId]
   )
 
+  // Fetch lists for the logged-in user
+  useEffect(() => {
+    const email = user?.email
+    if (email) {
+      dispatch(fetchLists({ userEmail: email }))
+    }
+  }, [dispatch, user?.email])
+
   useEffect(() => {
     if (selectedList && selectedListId !== selectedList.id) {
       dispatch(selectList({ id: selectedList.id }))
@@ -56,8 +65,8 @@ export default function Home() {
     try {
       const json = atob(shareParam)
       const incoming = JSON.parse(json) as { name: string; items: Omit<ShoppingItem, 'id' | 'createdAt'>[] }
-      if (incoming?.name) {
-        dispatch(createList({ name: `${incoming.name} (imported)` }))
+      if (incoming?.name && user?.email) {
+        dispatch(createList({ name: `${incoming.name} (imported)`, userEmail: user.email }))
         const newListId = (lists[lists.length - 1]?.id) // may not yet include, fallback via timeout
         // Defer adding items to ensure list exists
         setTimeout(() => {
@@ -107,7 +116,8 @@ export default function Home() {
   const onCreateList = () => {
     const name = newListName.trim()
     if (!name) return
-    dispatch(createList({ name }))
+    if (!user?.email) return alert('No user email found. Please log in again.')
+    dispatch(createList({ name, userEmail: user.email }))
     setNewListName('')
   }
 
@@ -119,7 +129,7 @@ export default function Home() {
     setEditingListName('')
   }
 
-  const onDeleteList = (id: string) => {
+  const onDeleteList = (id: string | number) => {
     if (confirm('Delete this list?')) dispatch(deleteList({ id }))
   }
 

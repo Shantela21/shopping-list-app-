@@ -2,7 +2,7 @@ export default function Privacy() {
   return (
     <main className="privacy-policy" >
       <h1 className="privacy-policy-title" >Privacy Policy</h1>
-      <p >Last updated: October 2, 2025</p>
+      <p >Effective date: October 2, 2025</p>
       <section className="privacy-policy-intro" >
         <p>
           This Privacy Policy explains how <strong>Shopping List App</strong> ("we", "us") collects,
@@ -55,7 +55,7 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section className="sharing-infor">
+      <section className="legal-bases">
         <h2>Sharing of Information</h2>
         <p>
           We do not sell your personal information. We may share information with:
@@ -76,7 +76,7 @@ export default function Privacy() {
         </ul>
       </section>
 
-      <section className="data-retention">
+      <section className="legal-bases">
         <h2>Data Retention</h2>
         <p>
           We retain personal information only for as long as necessary to provide the Service and for
@@ -85,7 +85,7 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section className="security">
+      <section className="legal-bases">
         <h2>Security</h2>
         <p>
           We implement reasonable technical and organizational measures designed to protect your
@@ -94,7 +94,7 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section className="your-rights">
+      <section className="legal-bases">
         <h2>Your Rights and Choices</h2>
         <ul>
           <li>Access, correct, or delete your account information.</li>
@@ -107,7 +107,7 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section className="childrens-privacy">
+      <section className="legal-bases">
         <h2>Children’s Privacy</h2>
         <p>
           The Service is not directed to children under 13 (or the age required by local law). We do
@@ -116,7 +116,7 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section className="international-transfers">
+      <section className="legal-bases">
         <h2>International Transfers</h2>
         <p>
           Your information may be processed and stored in countries other than your own. Where
@@ -124,7 +124,7 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section className="changes-to-this-policy">
+      <section className="legal-bases">
         <h2>Changes to This Policy</h2>
         <p>
           We may update this Privacy Policy from time to time. We will post the updated policy on this
@@ -133,11 +133,11 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section className="contact-us">
+      <section className="legal-bases">
         <h2>Contact Us</h2>
         <p>
           If you have questions or concerns about this Privacy Policy or our data practices, contact
-          us at <a href="mailto:privacy@example.com">privacy@example.com</a>.
+          us at <a href="#">shantelaslie@gmail.com</a>.
         </p>
       </section>
     </main>
