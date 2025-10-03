@@ -1,22 +1,383 @@
- import { useAppDispatch, useAppSelector } from '../../reduxHooks'
+ import { useEffect, useMemo, useRef, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../../reduxHooks'
 import { logout } from '../features/RegisterSlice'
-import { useNavigate } from 'react-router-dom'
+import {
+  addItem,
+  createList,
+  deleteItem,
+  deleteList,
+  renameList,
+  selectList,
+  updateItem,
+  fetchLists,
+} from '../features/ShoppingSlice'
+import type { ShoppingItem } from '../features/ShoppingSlice'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+
+type SortKey = 'name' | 'category' | 'date'
+
+function readFilesAsDataUrls(files: FileList | null): Promise<string[]> {
+  if (!files || files.length === 0) return Promise.resolve([])
+  const readers = Array.from(files).map(
+    (file) =>
+      new Promise<string>((resolve) => {
+        const fr = new FileReader()
+        fr.onload = () => resolve(String(fr.result))
+        fr.readAsDataURL(file)
+      })
+  )
+  return Promise.all(readers)
+}
 
 export default function Home() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const user = useAppSelector((s) => s.register.user)
+  const { lists, selectedListId } = useAppSelector((s) => s.shopping)
+
+  const [searchParams, setSearchParams] = useSearchParams()
+  const q = searchParams.get('q') ?? ''
+  const sortParam = (searchParams.get('sort') ?? 'date') as SortKey
+  const shareParam = searchParams.get('share')
+
+  const selectedList = useMemo(
+    () => lists.find((l) => l.id === selectedListId) ?? lists[0],
+    [lists, selectedListId]
+  )
+
+  // Fetch lists for the logged-in user
+  useEffect(() => {
+    const email = user?.email
+    if (email) {
+      dispatch(fetchLists({ userEmail: email }))
+    }
+  }, [dispatch, user?.email])
+
+  useEffect(() => {
+    if (selectedList && selectedListId !== selectedList.id) {
+      dispatch(selectList({ id: selectedList.id }))
+    }
+  }, [dispatch, selectedList, selectedListId])
+
+  // Share/import via URL
+  useEffect(() => {
+    if (!shareParam) return
+    try {
+      const json = atob(shareParam)
+      const incoming = JSON.parse(json) as { name: string; items: Omit<ShoppingItem, 'id' | 'createdAt'>[] }
+      if (incoming?.name && user?.email) {
+        dispatch(createList({ name: `${incoming.name} (imported)`, userEmail: user.email }))
+        const newListId = (lists[lists.length - 1]?.id) // may not yet include, fallback via timeout
+        // Defer adding items to ensure list exists
+        setTimeout(() => {
+          const targetId = newListId || (document.body.dataset['lastListId'] ?? '')
+          const finalId = targetId || (selectedList?.id ?? '')
+          incoming.items?.forEach((i) =>
+            dispatch(
+              addItem({
+                listId: finalId,
+                item: {
+                  name: i.name,
+                  quantity: i.quantity,
+                  notes: i.notes,
+                  category: i.category,
+                  images: i.images ?? [],
+                },
+              })
+            )
+          )
+        }, 0)
+      }
+    } catch {
+      // ignore malformed
+    } finally {
+      searchParams.delete('share')
+      setSearchParams(searchParams, { replace: true })
+    }
+  }, [shareParam, dispatch, lists, searchParams, setSearchParams, selectedList])
+
+  // Local UI state
+  const [newListName, setNewListName] = useState('')
+  const [editingListName, setEditingListName] = useState('')
+  const [itemDraft, setItemDraft] = useState({
+    name: '',
+    quantity: 1,
+    notes: '',
+    category: '',
+    images: [] as string[],
+  })
+  const fileRef = useRef<HTMLInputElement | null>(null)
 
   const onLogout = () => {
     dispatch(logout())
     navigate('/login')
   }
 
+  const onCreateList = () => {
+    const name = newListName.trim()
+    if (!name) return
+    if (!user?.email) return alert('No user email found. Please log in again.')
+    dispatch(createList({ name, userEmail: user.email }))
+    setNewListName('')
+  }
+
+  const onRenameList = () => {
+    if (!selectedList) return
+    const name = editingListName.trim()
+    if (!name) return
+    dispatch(renameList({ id: selectedList.id, name }))
+    setEditingListName('')
+  }
+
+  const onDeleteList = (id: string | number) => {
+    if (confirm('Delete this list?')) dispatch(deleteList({ id }))
+  }
+
+  const onAddItem = async () => {
+    if (!selectedList) return
+    const name = itemDraft.name.trim()
+    if (!name) return
+    dispatch(
+      addItem({
+        listId: selectedList.id,
+        item: {
+          name,
+          quantity: Number(itemDraft.quantity) || 1,
+          notes: itemDraft.notes.trim() || undefined,
+          category: itemDraft.category.trim(),
+          images: itemDraft.images,
+        },
+      })
+    )
+    setItemDraft({ name: '', quantity: 1, notes: '', category: '', images: [] })
+    if (fileRef.current) fileRef.current.value = ''
+  }
+
+  const onFilesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const imgs = await readFilesAsDataUrls(e.target.files)
+    setItemDraft((prev) => ({ ...prev, images: imgs }))
+  }
+
+  const filteredAndSorted = useMemo(() => {
+    const items = selectedList?.items ?? []
+    const filtered = q
+      ? items.filter((i) => i.name.toLowerCase().includes(q.toLowerCase()))
+      : items
+    const sorted = [...filtered].sort((a, b) => {
+      if (sortParam === 'name') return a.name.localeCompare(b.name)
+      if (sortParam === 'category') return a.category.localeCompare(b.category)
+      // date
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    })
+    return sorted
+  }, [selectedList, q, sortParam])
+
+  const setQuery = (nextQ: string) => {
+    const sp = new URLSearchParams(searchParams)
+    if (nextQ) sp.set('q', nextQ)
+    else sp.delete('q')
+    setSearchParams(sp, { replace: true })
+  }
+
+  const setSort = (sort: SortKey) => {
+    const sp = new URLSearchParams(searchParams)
+    sp.set('sort', sort)
+    setSearchParams(sp, { replace: true })
+  }
+
+  const onShare = () => {
+    if (!selectedList) return
+    const payload = {
+      name: selectedList.name,
+      items: selectedList.items.map((i) => ({
+        name: i.name,
+        quantity: i.quantity,
+        notes: i.notes,
+        category: i.category,
+        images: i.images,
+      })),
+    }
+    const encoded = btoa(JSON.stringify(payload))
+    const url = new URL(window.location.href)
+    url.searchParams.set('share', encoded)
+    navigator.clipboard?.writeText(url.toString())
+    alert('Share URL copied to clipboard!')
+  }
+
   return (
     <div className="container">
       <h1>Welcome{user ? `, ${user.name}` : ''}!</h1>
-      <p>You are now logged in.</p>
-      <button onClick={onLogout}>Logout</button>
+      <p>Manage your shopping lists below.</p>
+
+      <div style={{ display: 'flex', gap: 16, margin: '16px 0', alignItems: 'center' }}>
+        <div style={{ flex: 1 }}>
+          <label htmlFor="search" className="sr-only">Search items</label>
+          <input
+            id="search"
+            aria-label="Search items by name"
+            placeholder="Search items by name"
+            value={q}
+            onChange={(e) => setQuery(e.target.value)}
+            className="input-login"
+          />
+        </div>
+        <div>
+          <label htmlFor="sort" style={{ marginRight: 8 }}>Sort</label>
+          <select
+            id="sort"
+            aria-label="Sort items"
+            value={sortParam}
+            onChange={(e) => setSort(e.target.value as SortKey)}
+          >
+            <option value="name">Name</option>
+            <option value="category">Category</option>
+            <option value="date">Date added</option>
+          </select>
+        </div>
+        <button onClick={onShare} aria-label="Share current list">Share</button>
+        <button onClick={onLogout}>Logout</button>
+      </div>
+
+      <section aria-labelledby="lists-heading" style={{ marginBottom: 24 }}>
+        <h2 id="lists-heading" className="update">Shopping Lists</h2>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+          {lists.map((l) => (
+            <button
+              key={l.id}
+              onClick={() => dispatch(selectList({ id: l.id }))}
+              aria-pressed={selectedList?.id === l.id}
+              style={{
+                border: selectedList?.id === l.id ? '2px solid deepskyblue' : '1px solid #ccc',
+                background: 'white', color: 'black', padding: '6px 10px', borderRadius: 6,
+              }}
+            >
+              {l.name}
+            </button>
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
+          <input
+            aria-label="New list name"
+            placeholder="New list name"
+            value={newListName}
+            onChange={(e) => setNewListName(e.target.value)}
+            className="input-login"
+          />
+          <button onClick={onCreateList}>Add List</button>
+          {selectedList && (
+            <>
+              <input
+                aria-label="Rename selected list"
+                placeholder={`Rename: ${selectedList.name}`}
+                value={editingListName}
+                onChange={(e) => setEditingListName(e.target.value)}
+                className="input-login"
+              />
+              <button onClick={onRenameList}>Rename</button>
+              <button onClick={() => onDeleteList(selectedList.id)}>Delete List</button>
+            </>
+          )}
+        </div>
+      </section>
+
+      <section aria-labelledby="add-item-heading" className="container-profile" style={{ marginBottom: 24 }}>
+        <h2 id="add-item-heading">Add Item</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>
+          <div>
+            <label htmlFor="item-name">Name</label>
+            <input
+              id="item-name"
+              value={itemDraft.name}
+              onChange={(e) => setItemDraft((p) => ({ ...p, name: e.target.value }))}
+              className="input-login"
+            />
+          </div>
+          <div>
+            <label htmlFor="item-qty">Quantity</label>
+            <input
+              id="item-qty"
+              type="number"
+              min={1}
+              value={itemDraft.quantity}
+              onChange={(e) => setItemDraft((p) => ({ ...p, quantity: Number(e.target.value) }))}
+              className="input-login"
+            />
+          </div>
+          <div>
+            <label htmlFor="item-notes">Notes</label>
+            <input
+              id="item-notes"
+              value={itemDraft.notes}
+              onChange={(e) => setItemDraft((p) => ({ ...p, notes: e.target.value }))}
+              className="input-login"
+            />
+          </div>
+          <div>
+            <label htmlFor="item-category">Category</label>
+            <input
+              id="item-category"
+              value={itemDraft.category}
+              onChange={(e) => setItemDraft((p) => ({ ...p, category: e.target.value }))}
+              className="input-login"
+            />
+          </div>
+          <div>
+            <label htmlFor="item-images">Images</label>
+            <input id="item-images" type="file" accept="image/*" multiple onChange={onFilesChange} ref={fileRef} />
+          </div>
+        </div>
+        <div style={{ marginTop: 12 }}>
+          <button onClick={onAddItem} disabled={!selectedList}>Add Item</button>
+        </div>
+        {itemDraft.images.length > 0 && (
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 12 }} aria-label="Preview images">
+            {itemDraft.images.map((src, idx) => (
+              <img key={idx} src={src} alt={`preview ${idx + 1}`} style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 6 }} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section aria-labelledby="items-heading">
+        <h2 id="items-heading" className="update">Items {selectedList ? `in ${selectedList.name}` : ''}</h2>
+        {filteredAndSorted.length === 0 ? (
+          <p>No items found.</p>
+        ) : (
+          <ul style={{ listStyle: 'none', padding: 0, marginTop: 12 }}>
+            {filteredAndSorted.map((i) => (
+              <li key={i.id} style={{ border: '1px solid #ddd', padding: 12, borderRadius: 8, marginBottom: 8 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                  <div style={{ minWidth: 200 }}>
+                    <strong>{i.name}</strong>
+                    <div style={{ fontSize: 12, color: '#555' }}>Qty: {i.quantity} • Category: {i.category || '—'} • {new Date(i.createdAt).toLocaleString()}</div>
+                    {i.notes && <div style={{ marginTop: 4 }}>{i.notes}</div>}
+                    {i.images?.length ? (
+                      <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
+                        {i.images.map((src, idx) => (
+                          <img key={idx} src={src} alt={`${i.name} ${idx + 1}`} style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 4 }} />
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                  <div style={{ display: 'flex', gap: 6 }}>
+                    <button
+                      onClick={() => {
+                        const name = prompt('Edit name', i.name) ?? i.name
+                        const quantity = Number(prompt('Edit quantity', String(i.quantity)) ?? i.quantity)
+                        const notes = prompt('Edit notes', i.notes ?? '') ?? i.notes
+                        const category = prompt('Edit category', i.category ?? '') ?? i.category
+                        dispatch(updateItem({ listId: selectedList!.id, itemId: i.id, changes: { name, quantity, notes: notes || undefined, category } }))
+                      }}
+                      aria-label={`Edit ${i.name}`}
+                    >Edit</button>
+                    <button onClick={() => dispatch(deleteItem({ listId: selectedList!.id, itemId: i.id }))} aria-label={`Delete ${i.name}`}>Delete</button>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
     </div>
   )
 }

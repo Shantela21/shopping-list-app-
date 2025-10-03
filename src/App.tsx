@@ -10,6 +10,8 @@ import { ProtectedRoute, PublicOnlyRoute } from './components/ProtectedRoute'
 import Privacy from "./pages/Privacy";
 import EditProfile from "./pages/EditProfile";
 import NotFoundPage from "./pages/NotFoundPage";
+import ContactUs from "./pages/ContactUs";
+import Terms from "./pages/Terms";
 
 function App() {
   return (
@@ -29,9 +31,9 @@ function App() {
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/about" element={<div>About Page</div>} />
-        <Route path="/contact" element={<div>Contact Page</div>} />
+        <Route path="/contact" element={<ContactUs />} />
         <Route path="/privacy" element={<Privacy/>} />
-        <Route path="/terms" element={<div>Terms and Conditions Page</div>} />
+        <Route path="/terms" element={<Terms/>} />
       </Routes>
       <Footer />
     </>

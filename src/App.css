@@ -22,25 +22,7 @@ body,
   font-weight: bold;
 }
 
-.footer {
-  background-color: lightskyblue;
-  text-align: center;
-  padding: 20px 0;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  bottom: 0;
-  font-size: 20px;
-  font-weight: bold;
-  color: black;
-}
-a {
-  text-decoration: none;
-  color: inherit;
-}
-a:hover {
-  text-decoration: underline;
-}
+
 .container {
   max-width: 800px;
   margin: 0 auto;
@@ -133,6 +115,10 @@ button:hover{
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 80vh;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  margin-top: 40px;
 }
 .container-profile > h1 {
   text-align: center;
@@ -146,10 +132,16 @@ button:hover{
 }
 .profile-summary {
   margin-bottom: 20px;
+  font-size: 16px; 
+  line-height: 1.5;
+  padding: 60px;
+  padding-left: 35%;
+  
 }
 .profile-summary h2 {
   font-size: 24px;
   margin-bottom: 10px;
+  margin-top: 20px;
 }
 .profile-summary p {
   font-size: 16px; 
@@ -157,35 +149,123 @@ button:hover{
   margin-bottom: 20px;
 }
 .edit-profile-btn {
-  display: inline-block;
-  padding: 10px 20px;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
   background-color: lightskyblue;
   color: white;
-  text-decoration: none;
-  border-radius: 5px;
   font-size: 16px;
-}
-.edit-profile-btn:hover {
-  background-color: deepskyblue;
-}
-.update{
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: 24px;
+  cursor: pointer;
+  }
+  .edit-profile-btn:hover {
+    background-color: deepskyblue;
+  }
+  .update{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+  /* Visually hidden utility for accessible labels */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  @media (max-width: 600px) {
+    .container, .container-profile, .login, .register-form {
+      padding: 10px;
+      width: 90%;
+    }
+    .navbar, .footer {
+      flex-direction: column;
+      font-size: 16px;
+    }
+  }
+
+ .privacy-policy{
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+ } 
+.privacy-policy h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 32px;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
+}
+.privacy-policy h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+.privacy-policy p {
+  font-size: 16px; 
+  line-height: 1.5;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.privacy-policy-intro {
+  font-size: 16px; 
+  line-height: 1.5;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-style: italic;
+ }
+ .information-we-collect{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 16px; 
+  line-height: 1.5;
+ }
+
+ .how-we-use-your-information{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 16px; 
+  line-height: 1.5;
+ }
+ .legal-bases{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 16px; 
+  line-height: 1.5;
+ }
+
+.footer {
+  background-color: lightskyblue;
   text-align: center;
+  padding: 20px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  bottom: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
 }
-@media (max-width: 600px) {
-  .container, .container-profile, .login, .register-form {
-    padding: 10px;
-    width: 90%;
-  }
-  .navbar, .footer {
-    flex-direction: column;
-    font-size: 16px;
-  }
+a {
+  text-decoration: none;
+  color: inherit;
 }
-
-
+a:hover {
+  text-decoration: underline;
+}
