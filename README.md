@@ -55,31 +55,34 @@ A **React + TypeScript** web application that allows users to register, log in, 
 ---
 
 ## 📂 Project Structure
+```
 shopping-list-app/
 ├── src/
-│ ├── components/
-│ │ ├── Navbar.tsx
-│ │ ├── Footer.tsx
-│ │ ├── ProtectedRoute.tsx
-│ ├── pages/
-│ │ ├── Home.tsx
-│ │ ├── Login.tsx
-│ │ ├── Register.tsx
-│ │ ├── Profile.tsx
-│ │ ├── EditProfile.tsx
-│ │ ├── ContactUs.tsx
-│ │ ├── Privacy.tsx
-│ │ ├── Terms.tsx
-│ │ ├── NotFoundPage.tsx
-│ ├── data/
-│ │ └── db.json ← Mock API database
-│ ├── store.ts ← Redux store setup
-│ ├── App.tsx
-│ ├── main.tsx
-│ └── App.css
+│   ├── components/
+│   │   ├── Navbar.tsx
+│   │   ├── Footer.tsx
+│   │   ├── ProtectedRoute.tsx
+│   ├── pages/
+│   │   ├── Home.tsx
+│   │   ├── Login.tsx
+│   │   ├── Register.tsx
+│   │   ├── Profile.tsx
+│   │   ├── EditProfile.tsx
+│   │   ├── ContactUs.tsx
+│   │   ├── Privacy.tsx
+│   │   ├── Terms.tsx
+│   │   ├── NotFoundPage.tsx
+│   ├── data/
+│   │   └── db.json   ← Mock API database
+│   ├── store.ts      ← Redux store setup
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── App.css
 ├── package.json
 ├── tsconfig.json
 └── vite.config.ts
+```
+
 
 
 ---
