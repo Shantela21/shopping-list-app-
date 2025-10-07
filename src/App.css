@@ -97,6 +97,17 @@ button:hover{
   border: 1px solid #ccc;
   margin: 20px 0;
 } */
+
+/* .containerHome{
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  
+} */
 .signin{
   text-align: center;
   margin-top: 20px;
@@ -115,7 +126,7 @@ button:hover{
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  height: 80vh;
+  height: 40vh;
   margin-bottom: 40px;
   padding-bottom: 40px;
   margin-top: 40px;
@@ -250,6 +261,34 @@ button:hover{
   line-height: 1.5;
  }
 
+ .searchBar{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 16px; 
+  line-height: 1.5;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+
+ .shareLogout{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 16px; 
+  line-height: 1.5;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+ }
+
 .footer {
   background-color: lightskyblue;
   text-align: center;
@@ -262,10 +301,68 @@ button:hover{
   font-weight: bold;
   color: black;
 }
-a {
-  text-decoration: none;
-  color: inherit;
+
+/* Landing page 3D + animations */
+.landing-hero {
+  perspective: 1000px;
 }
-a:hover {
-  text-decoration: underline;
+
+.hero-card {
+  width: 100%;
+  max-width: 560px;
+  transform-style: preserve-3d;
+  transition: transform 120ms ease-out, box-shadow 200ms ease;
+  will-change: transform;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12), 0 6px 12px rgba(0,0,0,0.08);
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75));
+  padding: 6px;
+}
+
+.hero-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  transform: translateZ(30px);
+}
+
+.hero-title {
+  animation: fadeUp 600ms ease both;
+}
+
+.hero-text {
+  animation: fadeUp 800ms ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+  box-shadow: 0 8px 0 rgba(0,0,0,0.15), 0 12px 24px rgba(0,0,0,0.12);
+}
+
+.btn-3d:active {
+  transform: translateY(2px);
+  box-shadow: 0 6px 0 rgba(0,0,0,0.18), 0 8px 16px rgba(0,0,0,0.14);
+}
+
+.btn-3d.alt {
+  background: #222;
+  color: #fff;
+}
+
+.feature-card {
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  will-change: transform;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.10), 0 6px 12px rgba(0,0,0,0.06);
 }

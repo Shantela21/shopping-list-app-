@@ -1,4 +1,5 @@
  import { useEffect, useMemo, useRef, useState } from 'react'
+import type { ChangeEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../reduxHooks'
 import { logout } from '../features/RegisterSlice'
 import {
@@ -153,7 +154,7 @@ export default function Home() {
     if (fileRef.current) fileRef.current.value = ''
   }
 
-  const onFilesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onFilesChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const imgs = await readFilesAsDataUrls(e.target.files)
     setItemDraft((prev) => ({ ...prev, images: imgs }))
   }
@@ -209,8 +210,8 @@ export default function Home() {
       <h1>Welcome{user ? `, ${user.name}` : ''}!</h1>
       <p>Manage your shopping lists below.</p>
 
-      <div style={{ display: 'flex', gap: 16, margin: '16px 0', alignItems: 'center' }}>
-        <div style={{ flex: 1 }}>
+      <div className='search'>
+        <div className='searchBar'>
           <label htmlFor="search" className="sr-only">Search items</label>
           <input
             id="search"
@@ -234,13 +235,15 @@ export default function Home() {
             <option value="date">Date added</option>
           </select>
         </div>
-        <button onClick={onShare} aria-label="Share current list">Share</button>
-        <button onClick={onLogout}>Logout</button>
+        <div className='shareLogout'>
+        <button className='shareBtn' onClick={onShare} aria-label="Share current list">Share</button>
+        <button className='logoutBtn' onClick={onLogout}>Logout</button>
+        </div>
       </div>
 
       <section aria-labelledby="lists-heading" style={{ marginBottom: 24 }}>
         <h2 id="lists-heading" className="update">Shopping Lists</h2>
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+        <div className='addList' style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
           {lists.map((l) => (
             <button
               key={l.id}
@@ -282,7 +285,7 @@ export default function Home() {
 
       <section aria-labelledby="add-item-heading" className="container-profile" style={{ marginBottom: 24 }}>
         <h2 id="add-item-heading">Add Item</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>
+        <div className='addList' style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>
           <div>
             <label htmlFor="item-name">Name</label>
             <input
@@ -342,11 +345,13 @@ export default function Home() {
         <h2 id="items-heading" className="update">Items {selectedList ? `in ${selectedList.name}` : ''}</h2>
         {filteredAndSorted.length === 0 ? (
           <p>No items found.</p>
+          
         ) : (
           <ul style={{ listStyle: 'none', padding: 0, marginTop: 12 }}>
             {filteredAndSorted.map((i) => (
               <li key={i.id} style={{ border: '1px solid #ddd', padding: 12, borderRadius: 8, marginBottom: 8 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                  
                   <div style={{ minWidth: 200 }}>
                     <strong>{i.name}</strong>
                     <div style={{ fontSize: 12, color: '#555' }}>Qty: {i.quantity} • Category: {i.category || '—'} • {new Date(i.createdAt).toLocaleString()}</div>
