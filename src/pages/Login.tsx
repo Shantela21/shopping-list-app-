@@ -31,7 +31,7 @@ export default function Login() {
     }
     dispatch(setUser(user))
     dispatch(loginSuccess())
-    navigate('/profile')
+    navigate('/home')
   }
 
   return (<>
@@ -60,7 +60,6 @@ export default function Login() {
         />
 
         {error && <p role="alert" style={{ color: 'red' }}>{error}</p>}
-
         <button type="submit">Login</button>
 
         <p style={{ marginTop: 12 }}>

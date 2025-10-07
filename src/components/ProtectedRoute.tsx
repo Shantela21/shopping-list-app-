@@ -9,5 +9,5 @@ export function ProtectedRoute() {
 // For pages like login/register: if already authed, redirect away
 export function PublicOnlyRoute() {
   const isAuthenticated = useAppSelector((s) => s.register.isAuthenticated)
-  return isAuthenticated ? <Navigate to="/" replace /> : <Outlet />
+  return isAuthenticated ? <Navigate to="/home" replace /> : <Outlet />
 }

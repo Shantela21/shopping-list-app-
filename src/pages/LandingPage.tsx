@@ -66,7 +66,7 @@ export default function LandingPage() {
 
       {/* Features */}
       <section style={{ maxWidth: 1100, margin: '0 auto' }} aria-labelledby="features-heading">
-        <h2 id="features-heading" className="update" style={{ fontSize: 24, marginBottom: 12 }}>Why use Shopping List?</h2>
+        <h2 id="features-heading" className="update" style={{ fontSize: 24, marginBottom: 27}}>Why use Shopping List?</h2>
         <div style={{ display: 'grid', gap: 16, gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))' }}>
           <article className="feature-card" style={{ border: '1px solid #eee', borderRadius: 10, padding: 16 }}>
             <h3 style={{ marginBottom: 8 }}>Fast and simple</h3>
