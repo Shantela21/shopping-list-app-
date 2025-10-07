@@ -243,7 +243,7 @@ export default function Home() {
 
       <section aria-labelledby="lists-heading" style={{ marginBottom: 24 }}>
         <h2 id="lists-heading" className="update">Shopping Lists</h2>
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+        <div className='addList' style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
           {lists.map((l) => (
             <button
               key={l.id}
@@ -285,7 +285,7 @@ export default function Home() {
 
       <section aria-labelledby="add-item-heading" className="container-profile" style={{ marginBottom: 24 }}>
         <h2 id="add-item-heading">Add Item</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>
+        <div className='addList' style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>
           <div>
             <label htmlFor="item-name">Name</label>
             <input
@@ -345,11 +345,13 @@ export default function Home() {
         <h2 id="items-heading" className="update">Items {selectedList ? `in ${selectedList.name}` : ''}</h2>
         {filteredAndSorted.length === 0 ? (
           <p>No items found.</p>
+          
         ) : (
           <ul style={{ listStyle: 'none', padding: 0, marginTop: 12 }}>
             {filteredAndSorted.map((i) => (
               <li key={i.id} style={{ border: '1px solid #ddd', padding: 12, borderRadius: 8, marginBottom: 8 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                  
                   <div style={{ minWidth: 200 }}>
                     <strong>{i.name}</strong>
                     <div style={{ fontSize: 12, color: '#555' }}>Qty: {i.quantity} • Category: {i.category || '—'} • {new Date(i.createdAt).toLocaleString()}</div>
