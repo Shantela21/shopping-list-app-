@@ -1,4 +1,5 @@
  import { useEffect, useMemo, useRef, useState } from 'react'
+import type { ChangeEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../reduxHooks'
 import { logout } from '../features/RegisterSlice'
 import {
@@ -153,7 +154,7 @@ export default function Home() {
     if (fileRef.current) fileRef.current.value = ''
   }
 
-  const onFilesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onFilesChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const imgs = await readFilesAsDataUrls(e.target.files)
     setItemDraft((prev) => ({ ...prev, images: imgs }))
   }
@@ -209,8 +210,8 @@ export default function Home() {
       <h1>Welcome{user ? `, ${user.name}` : ''}!</h1>
       <p>Manage your shopping lists below.</p>
 
-      <div style={{ display: 'flex', gap: 16, margin: '16px 0', alignItems: 'center' }}>
-        <div style={{ flex: 1 }}>
+      <div className='search'>
+        <div className='searchBar'>
           <label htmlFor="search" className="sr-only">Search items</label>
           <input
             id="search"
@@ -234,8 +235,10 @@ export default function Home() {
             <option value="date">Date added</option>
           </select>
         </div>
-        <button onClick={onShare} aria-label="Share current list">Share</button>
-        <button onClick={onLogout}>Logout</button>
+        <div className='shareLogout'>
+        <button className='shareBtn' onClick={onShare} aria-label="Share current list">Share</button>
+        <button className='logoutBtn' onClick={onLogout}>Logout</button>
+        </div>
       </div>
 
       <section aria-labelledby="lists-heading" style={{ marginBottom: 24 }}>
