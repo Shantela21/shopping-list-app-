@@ -18,6 +18,7 @@ export interface ShoppingList {
   id: string | number
   userEmail: string
   name: string
+  coverImage?: ImageData
   items: ShoppingItem[]
   createdAt: string
 }
@@ -43,10 +44,10 @@ export const fetchLists = createAsyncThunk<ShoppingList[], { userEmail: string }
   }
 )
 
-export const createList = createAsyncThunk<ShoppingList, { name: string; userEmail: string }>(
+export const createList = createAsyncThunk<ShoppingList, { name: string; userEmail: string; coverImage?: ImageData }>(
   'shopping/createList',
-  async ({ name, userEmail }) => {
-    const payload = { name, userEmail, items: [], createdAt: new Date().toISOString() }
+  async ({ name, userEmail, coverImage }) => {
+    const payload = { name, userEmail, coverImage, items: [], createdAt: new Date().toISOString() }
     const { data } = await api.post<ShoppingList>('/shoppingLists', payload)
     return data
   }
