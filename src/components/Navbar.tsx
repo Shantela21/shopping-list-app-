@@ -17,17 +17,17 @@ export default function Navbar() {
   return (
     <div>
       <nav className="navbar" style={{ display: 'flex', gap: 16, alignItems: 'center', padding: '8px 12px' }}>
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', color: 'black' }} aria-label="Go to landing page">
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', color: 'white' }} aria-label="Go to landing page">
           <img src={logo} alt="Shopping List logo" style={{ width: 40, height: 40}} />
           <span style={{ fontWeight: 700 }}>CartLogic </span>
         </Link>
-        <NavLink  to="/home" style={{ textDecoration: 'none', color: 'black'}}>Home</NavLink>
+        <NavLink  to="/home" style={{ textDecoration: 'none', color: 'white'}}>Home</NavLink>
       
-        <NavLink to="/profile" style={{ textDecoration: 'none', color: 'black' }}>Profile</NavLink>
+        <NavLink to="/profile" style={{ textDecoration: 'none', color: 'white' }}>Profile</NavLink>
         <Link
           to="/"
           onClick={(e) => { e.preventDefault(); onLogout() }}
-          style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', color: 'black' }}
+          style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', color: 'white' }}
           aria-label="Logout"
           role="button"
         >

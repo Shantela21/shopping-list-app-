@@ -40,7 +40,7 @@ export default function ContactUs() {
 
   return (
     <div className="container">
-      <h1>Contact Us</h1>
+    
       <form onSubmit={onSubmit}  aria-labelledby="contact-heading">
         <h2 id="contact-heading" className="update" style={{ fontSize: 24, marginBottom: 27, marginTop: 24}}>Get in touch with us.</h2>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12, padding:'20px', backgroundColor:'#f3f4f6', borderRadius:10 }}>
@@ -98,7 +98,7 @@ export default function ContactUs() {
             />
             {errors.message && <div id="message-error" className="error">{errors.message}</div>}
           </div>
-          <button type="submit">Send Message</button>
+          <button className="btn-login" type="submit">Send Message</button>
           {status && <div role="status" style={{ marginTop: 8 }}>{status}</div>}
         </div>
       </form>

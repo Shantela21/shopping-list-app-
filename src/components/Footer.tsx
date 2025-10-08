@@ -3,11 +3,11 @@ export default function Footer() {
     <div>
       <footer className="footer">
         <div className="footer-separator">
-        <p>Shopping List App @ 2025</p>
-        <p>All rights reserved</p>
+        <p style={{color:"white"}}>Shopping List App @ 2025</p>
+        <p style={{color:"white"}}>All rights reserved</p>
         
-          <a style={{color:"black"}} href="/about">About Us</a> | <a style={{color:"black"}} href="/contact">Contact</a> | <a style={{color:"black"}} href="/privacy">Privacy</a> | <a  style={{color:"black"}}href="/terms">Terms and Conditions</a>
-          <p style={{color:"black", margin:"10px"}}>Designed by S Noyila</p>
+          <a style={{color:"white"}} href="/about">About Us</a> | <a style={{color:"white"}} href="/contact">Contact</a> | <a style={{color:"white"}} href="/privacy">Privacy</a> | <a  style={{color:"white"}}href="/terms">Terms and Conditions</a>
+          <p style={{color:"white", margin:"10px"}}>Designed by S Noyila</p>
         </div>
       </footer>
     
