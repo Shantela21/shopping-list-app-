@@ -211,6 +211,7 @@ export default function Home() {
   }
 
   return (
+    
     <div className="containerHome" >
       <h1 style={{ textAlign: 'center', marginBottom: 24, marginTop: 24, }}>Welcome{user ? `, ${user.name}` : ''}!</h1> 
       <p style={{ textAlign: 'center', marginBottom: 24, marginTop: 24,}}>Manage your shopping lists below.</p>

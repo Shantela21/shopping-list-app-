@@ -13,11 +13,13 @@ import NotFoundPage from "./pages/NotFoundPage";
 import ContactUs from "./pages/ContactUs";
 import Terms from "./pages/Terms";
 import LandingPage from "./pages/LandingPage";
+import About from "./pages/About";
 
 function App() {
   return (
-    <>
+    <div className="app-shell">
       <Navbar />
+      <div className="app-content">
       <Routes>
         <Route element={<PublicOnlyRoute />}> 
           <Route path="/register" element={<Register />} />
@@ -31,13 +33,14 @@ function App() {
         </Route>
         <Route path="/" element={<LandingPage />} />
         <Route path="*" element={<NotFoundPage />} />
-        <Route path="/about" element={<div>About Page</div>} />
+        <Route path="/about" element={<About />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/privacy" element={<Privacy/>} />
         <Route path="/terms" element={<Terms/>} />
       </Routes>
+      </div>
       <Footer />
-    </>
+    </div>
   );
 }
 export default App;
