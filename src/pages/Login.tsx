@@ -61,7 +61,7 @@ export default function Login() {
         />
 
         {error && <p role="alert" style={{ color: 'red' }}>{error}</p>}
-        <button type="submit">Login</button>
+        <button className='btn-login' type="submit">Login</button>
 
         <p style={{ marginTop: 12 }}>
           Don't have an account? <Link to="/register">Register</Link>

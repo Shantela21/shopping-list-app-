@@ -286,7 +286,7 @@ export default function Home() {
               reader.readAsDataURL(f)
             }}
           />
-          <button onClick={onCreateList}>Add List</button>
+          <button className='addListBtn' onClick={onCreateList}>Add List</button>
           {selectedList && (
             <>
               <input
@@ -296,8 +296,8 @@ export default function Home() {
                 onChange={(e) => setEditingListName(e.target.value)}
                 className="input-login"
               />
-              <button onClick={onRenameList}>Rename</button>
-              <button onClick={() => onDeleteList(selectedList.id)}>Delete List</button>
+              <button  className='addListBtn' onClick={onRenameList}>Rename</button>
+              <button  className='addListBtn' onClick={() => onDeleteList(selectedList.id)}>Delete List</button>
             </>
           )}
         </div>
@@ -307,7 +307,7 @@ export default function Home() {
           </div>
         )}
          <div className='shareLogout' style={{marginLeft: 'auto'}} >
-        <button className='shareBtn' onClick={onShare} aria-label="Share current list" title="Share" style={{marginRight:'90%',padding:'10px 35px', display: 'flex', alignItems: 'start', justifyContent: 'start',border:"1px solid red" }}>
+        <button className='shareBtn' onClick={onShare} aria-label="Share current list" title="Share" >
 
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.02-4.11A3.003 3.003 0 0 0 18 7.91c1.66 0 3-1.34 3-3S19.66 1.91 18 1.91 15 3.25 15 4.91c0 .24.04.47.09.7L8.07 9.72A3.003 3.003 0 0 0 6 8.91c-1.66 0-3 1.34-3 3s1.34 3 3 3c.9 0 1.71-.4 2.25-1.03l7.1 4.15c-.03.15-.05.31-.05.47 0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3z"/>
@@ -361,12 +361,12 @@ export default function Home() {
             />
           </div>
           <div>
-            <label htmlFor="item-images">Images</label>
+            <label htmlFor="item-images"></label>
             <input id="item-images" type="file" accept="image/*" multiple onChange={onFilesChange} ref={fileRef} />
           </div>
         </div>
         <div style={{ marginTop: 12 }}>
-          <button onClick={onAddItem} disabled={!selectedList}>Add Item</button>
+          <button className='addItem' onClick={onAddItem} disabled={!selectedList}>Add Item</button>
         </div>
         {itemDraft.images.length > 0 && (
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 12 }} aria-label="Preview images">

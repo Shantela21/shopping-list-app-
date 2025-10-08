@@ -60,7 +60,7 @@ export default function EditProfile() {
   }
 
   return (
-    <div className="container">
+    <div className="containers-edit">
       <h1 className="profile-title">Edit Profile</h1>
 
       <form onSubmit={saveProfile} style={{ marginBottom: 24 }}>
