@@ -46,6 +46,21 @@ export default function Home() {
     [lists, selectedListId]
   )
 
+  // Filter lists by list name or any item fields (name, category, notes)
+  const filteredLists = useMemo(() => {
+    if (!q) return lists
+    const ql = q.toLowerCase()
+    return lists.filter((l) => {
+      const inListName = l.name.toLowerCase().includes(ql)
+      const inItems = l.items?.some((i) => (
+        (i.name || '').toLowerCase().includes(ql) ||
+        (i.category || '').toLowerCase().includes(ql) ||
+        (i.notes || '').toLowerCase().includes(ql)
+      ))
+      return inListName || inItems
+    })
+  }, [lists, q])
+
   // Fetch lists for the logged-in user
   useEffect(() => {
     const email = user?.email
@@ -166,8 +181,13 @@ export default function Home() {
 
   const filteredAndSorted = useMemo(() => {
     const items = selectedList?.items ?? []
+    const ql = q.toLowerCase()
     const filtered = q
-      ? items.filter((i) => i.name.toLowerCase().includes(q.toLowerCase()))
+      ? items.filter((i) => (
+          (i.name || '').toLowerCase().includes(ql) ||
+          (i.category || '').toLowerCase().includes(ql) ||
+          (i.notes || '').toLowerCase().includes(ql)
+        ))
       : items
     const sorted = [...filtered].sort((a, b) => {
       if (sortParam === 'name') return a.name.localeCompare(b.name)
@@ -217,11 +237,11 @@ export default function Home() {
       <p style={{ textAlign: 'center', marginBottom: 24, marginTop: 24,}}>Manage your shopping lists below.</p>
       
       <div className='searchBar'>
-          <label htmlFor="search" className="sr-only">Search items</label>
+          <label htmlFor="search" className="sr-only">Search lists and items</label>
           <input
             id="search"
-            aria-label="Search items by name"
-            placeholder="Search items by name"
+            aria-label="Search by list name, item name, category, or notes"
+            placeholder="Search lists, items, categories, notes"
             value={q}
             onChange={(e) => setQuery(e.target.value)}
             className="input-login"
@@ -235,8 +255,9 @@ export default function Home() {
       <section aria-labelledby="lists-heading" style={{ marginBottom: 24,padding:'10px', width:'50%'
       }}>
         <h2 id="lists-heading" className="update">Shopping Lists</h2>
+        
         <div className='addList' style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'stretch' }}>
-          {lists.map((l) => (
+          {filteredLists.map((l) => (
             <button
               key={l.id}
               onClick={() => { dispatch(selectList({ id: l.id })) }}
@@ -286,7 +307,7 @@ export default function Home() {
               reader.readAsDataURL(f)
             }}
           />
-          <button onClick={onCreateList}>Add List</button>
+          <button className='addListBtn' onClick={onCreateList}>Add List</button>
           {selectedList && (
             <>
               <input
@@ -296,8 +317,8 @@ export default function Home() {
                 onChange={(e) => setEditingListName(e.target.value)}
                 className="input-login"
               />
-              <button onClick={onRenameList}>Rename</button>
-              <button onClick={() => onDeleteList(selectedList.id)}>Delete List</button>
+              <button  className='addListBtn' onClick={onRenameList}>Rename</button>
+              <button  className='addListBtn' onClick={() => onDeleteList(selectedList.id)}>Delete List</button>
             </>
           )}
         </div>
@@ -307,7 +328,7 @@ export default function Home() {
           </div>
         )}
          <div className='shareLogout' style={{marginLeft: 'auto'}} >
-        <button className='shareBtn' onClick={onShare} aria-label="Share current list" title="Share" style={{marginRight:'90%',padding:'10px 35px', display: 'flex', alignItems: 'start', justifyContent: 'start',border:"1px solid red" }}>
+        <button className='shareBtn' onClick={onShare} aria-label="Share current list" title="Share" >
 
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.02-4.11A3.003 3.003 0 0 0 18 7.91c1.66 0 3-1.34 3-3S19.66 1.91 18 1.91 15 3.25 15 4.91c0 .24.04.47.09.7L8.07 9.72A3.003 3.003 0 0 0 6 8.91c-1.66 0-3 1.34-3 3s1.34 3 3 3c.9 0 1.71-.4 2.25-1.03l7.1 4.15c-.03.15-.05.31-.05.47 0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3z"/>
@@ -361,12 +382,12 @@ export default function Home() {
             />
           </div>
           <div>
-            <label htmlFor="item-images">Images</label>
+            <label htmlFor="item-images"></label>
             <input id="item-images" type="file" accept="image/*" multiple onChange={onFilesChange} ref={fileRef} />
           </div>
         </div>
         <div style={{ marginTop: 12 }}>
-          <button onClick={onAddItem} disabled={!selectedList}>Add Item</button>
+          <button className='addItem' onClick={onAddItem} disabled={!selectedList}>Add Item</button>
         </div>
         {itemDraft.images.length > 0 && (
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 12 }} aria-label="Preview images">
@@ -435,9 +456,9 @@ export default function Home() {
                             const category = prompt('Edit category', i.category ?? '') ?? i.category
                             dispatch(updateItem({ listId: selectedList!.id, itemId: i.id, changes: { name, quantity, notes: notes || undefined, category } }))
                           }}
-                          aria-label={`Edit ${i.name}`}
+                          aria-label={`Edit ${i.name}`} style={{ cursor: 'pointer', }}
                         >Edit</button>
-                        <button onClick={() => dispatch(deleteItem({ listId: selectedList!.id, itemId: i.id }))} aria-label={`Delete ${i.name}`}>Delete</button>
+                        <button onClick={() => dispatch(deleteItem({ listId: selectedList!.id, itemId: i.id }))} aria-label={`Delete ${i.name}`} style={{ cursor: 'pointer' }}>Delete</button>
                       </div>
                     </td>
                   </tr>

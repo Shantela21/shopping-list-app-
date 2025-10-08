@@ -35,18 +35,18 @@ export default function LandingPage() {
           </p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             <button
-              className="shareBtn btn-3d"
+              className="getStartedBtn-btn-3d"
               onClick={() => navigate('/login')}
               aria-label="Get started and go to login"
-              style={{ padding: '10px 18px', borderRadius: 8 }}
+              
             >
               GET STARTED
             </button>
             <button
-              className="logoutBtn btn-3d alt"
+              className="createAccountBtn-btn-3d"
               onClick={() => navigate('/register')}
               aria-label="Create your account"
-              style={{ padding: '10px 18px', borderRadius: 8 }}
+              
             >
               CREATE ACCOUNT
             </button>
