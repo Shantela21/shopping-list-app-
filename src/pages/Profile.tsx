@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useAppSelector } from '../../reduxHooks'
+import Footer from '../components/Footer'
 
 export default function Profile() {
   const user = useAppSelector((s) => s.register.user)
@@ -19,10 +20,10 @@ export default function Profile() {
   }
 
   return (
+    <div className="containers">
     <div className="container-profile">
       <h1 className='profile-title'>Profile</h1>
       <section className="profile-summary" style={{ marginBottom: 24 }}>
-        <h2>Your Profile</h2>
         <ul>
           <li><b>Name:</b> {user.name}</li>
           <li><b>Surname:</b> {user.surname}</li>
@@ -33,8 +34,9 @@ export default function Profile() {
         <br></br>
         <Link className="edit-profile-btn" to="/profile/edit">Edit Profile</Link>
       </section>
-
       
+      
+    </div>
     </div>
   )
 }

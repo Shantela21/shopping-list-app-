@@ -41,9 +41,9 @@ export default function ContactUs() {
   return (
     <div className="container">
       <h1>Contact Us</h1>
-      <form onSubmit={onSubmit} className="container-profile" aria-labelledby="contact-heading">
-        <h2 id="contact-heading" className="update">Get in touch with us.</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12 }}>
+      <form onSubmit={onSubmit}  aria-labelledby="contact-heading">
+        <h2 id="contact-heading" className="update" style={{ fontSize: 24, marginBottom: 27, marginTop: 24}}>Get in touch with us.</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12, padding:'20px', backgroundColor:'#f3f4f6', borderRadius:10 }}>
           <div>
             <label htmlFor="name">Name</label>
             <input

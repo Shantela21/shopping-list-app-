@@ -24,6 +24,7 @@ export default function LandingPage() {
   const onLeave = () => setCardTransform('rotateX(0deg) rotateY(0deg)')
 
   return (
+    
     <main style={{ padding: 24 }}>
       {/* Hero */}
       <section className="landing-hero" style={{ display: 'grid', gap: 24, alignItems: 'center', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', maxWidth: 1100, margin: '0 auto 40px', perspective: 1000 }}>

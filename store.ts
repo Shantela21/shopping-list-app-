@@ -3,6 +3,7 @@ import loginReducer from './src/features/LoginSlice';
 import registerReducer from './src/features/RegisterSlice';
 import shoppingReducer from './src/features/ShoppingSlice';
 import landingReducer from './src/features/LandingPageSlice';
+import aboutReducer from './src/features/AboutSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     // Add other reducers here
     shopping: shoppingReducer,
     landing: landingReducer,
+    about: aboutReducer,
   },
 });
 

@@ -100,6 +100,7 @@ export default function Home() {
   // Local UI state
   const [newListName, setNewListName] = useState('')
   const [editingListName, setEditingListName] = useState('')
+  const [newListImage, setNewListImage] = useState<string | null>(null)
   const [itemDraft, setItemDraft] = useState({
     name: '',
     quantity: 1,
@@ -108,6 +109,8 @@ export default function Home() {
     images: [] as string[],
   })
   const fileRef = useRef<HTMLInputElement | null>(null)
+  const listCoverRef = useRef<HTMLInputElement | null>(null)
+
 
   const onLogout = () => {
     dispatch(logout())
@@ -118,8 +121,10 @@ export default function Home() {
     const name = newListName.trim()
     if (!name) return
     if (!user?.email) return alert('No user email found. Please log in again.')
-    dispatch(createList({ name, userEmail: user.email }))
+    dispatch(createList({ name, userEmail: user.email, coverImage: newListImage ?? undefined }))
     setNewListName('')
+    setNewListImage(null)
+    if (listCoverRef.current) listCoverRef.current.value = ''
   }
 
   const onRenameList = () => {
@@ -206,12 +211,12 @@ export default function Home() {
   }
 
   return (
-    <div className="container">
-      <h1>Welcome{user ? `, ${user.name}` : ''}!</h1>
-      <p>Manage your shopping lists below.</p>
-
-      <div className='search'>
-        <div className='searchBar'>
+    
+    <div className="containerHome" >
+      <h1 style={{ textAlign: 'center', marginBottom: 24, marginTop: 24, }}>Welcome{user ? `, ${user.name}` : ''}!</h1> 
+      <p style={{ textAlign: 'center', marginBottom: 24, marginTop: 24,}}>Manage your shopping lists below.</p>
+      
+      <div className='searchBar'>
           <label htmlFor="search" className="sr-only">Search items</label>
           <input
             id="search"
@@ -222,39 +227,41 @@ export default function Home() {
             className="input-login"
           />
         </div>
-        <div>
-          <label htmlFor="sort" style={{ marginRight: 8 }}>Sort</label>
-          <select
-            id="sort"
-            aria-label="Sort items"
-            value={sortParam}
-            onChange={(e) => setSort(e.target.value as SortKey)}
-          >
-            <option value="name">Name</option>
-            <option value="category">Category</option>
-            <option value="date">Date added</option>
-          </select>
-        </div>
-        <div className='shareLogout'>
-        <button className='shareBtn' onClick={onShare} aria-label="Share current list">Share</button>
-        <button className='logoutBtn' onClick={onLogout}>Logout</button>
-        </div>
+
+    <div style={{display:'flex', flexDirection: 'row'}}>
+      <div className='search'>
       </div>
 
-      <section aria-labelledby="lists-heading" style={{ marginBottom: 24 }}>
+      <section aria-labelledby="lists-heading" style={{ marginBottom: 24,padding:'10px', width:'50%'
+      }}>
         <h2 id="lists-heading" className="update">Shopping Lists</h2>
-        <div className='addList' style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+        <div className='addList' style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'stretch' }}>
           {lists.map((l) => (
             <button
               key={l.id}
-              onClick={() => dispatch(selectList({ id: l.id }))}
+              onClick={() => { dispatch(selectList({ id: l.id })) }}
               aria-pressed={selectedList?.id === l.id}
               style={{
-                border: selectedList?.id === l.id ? '2px solid deepskyblue' : '1px solid #ccc',
-                background: 'white', color: 'black', padding: '6px 10px', borderRadius: 6,
+                width: 200,
+                textAlign: 'left',
+                border: selectedList?.id === l.id ? '2px solid deepskyblue' : '1px solid #ddd',
+                background: '#fff',
+                color: 'black',
+                padding: 0,
+                borderRadius: 10,
+                overflow: 'hidden',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.06)'
               }}
             >
-              {l.name}
+              {l.coverImage ? (
+                <img src={l.coverImage} alt={`${l.name} cover`} style={{ width: '100%', height: 100, objectFit: 'cover' }} />
+              ) : (
+                <div style={{ width: '100%', height: 100, background: '#f3f4f6' }} />
+              )}
+              <div style={{ padding: 10 }}>
+                <div style={{ fontWeight: 700 }}>{l.name}</div>
+                <div style={{ fontSize: 12, color: '#666' }}>{l.items.length} items</div>
+              </div>
             </button>
           ))}
         </div>
@@ -265,6 +272,19 @@ export default function Home() {
             value={newListName}
             onChange={(e) => setNewListName(e.target.value)}
             className="input-login"
+          />
+          <input style={{ display: 'flex', gap: 8, marginTop: 12}}
+            ref={listCoverRef}
+            type="file"
+            accept="image/*"
+            aria-label="List cover image"
+            onChange={async (e) => {
+              const f = e.target.files?.[0]
+              if (!f) { setNewListImage(null); return }
+              const reader = new FileReader()
+              reader.onload = () => setNewListImage(String(reader.result))
+              reader.readAsDataURL(f)
+            }}
           />
           <button onClick={onCreateList}>Add List</button>
           {selectedList && (
@@ -281,9 +301,25 @@ export default function Home() {
             </>
           )}
         </div>
+        {newListImage && (
+          <div style={{ marginTop: 8 }}>
+            <img src={newListImage} alt="New list cover preview" style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 6, border: '1px solid #ddd' }} />
+          </div>
+        )}
+         <div className='shareLogout' style={{marginLeft: 'auto'}} >
+        <button className='shareBtn' onClick={onShare} aria-label="Share current list" title="Share" style={{marginRight:'90%',padding:'10px 35px', display: 'flex', alignItems: 'start', justifyContent: 'start',border:"1px solid red" }}>
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.02-4.11A3.003 3.003 0 0 0 18 7.91c1.66 0 3-1.34 3-3S19.66 1.91 18 1.91 15 3.25 15 4.91c0 .24.04.47.09.7L8.07 9.72A3.003 3.003 0 0 0 6 8.91c-1.66 0-3 1.34-3 3s1.34 3 3 3c.9 0 1.71-.4 2.25-1.03l7.1 4.15c-.03.15-.05.31-.05.47 0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3z"/>
+          </svg>
+        </button>
+        </div>
       </section>
 
-      <section aria-labelledby="add-item-heading" className="container-profile" style={{ marginBottom: 24 }}>
+
+
+     <div style={{padding:'10px',width:'50%' }}>  
+      <section aria-labelledby="add-item-heading" className="container-profile" style={{ marginBottom: 24, marginLeft:'10px', width:'100%' }}>
         <h2 id="add-item-heading">Add Item</h2>
         <div className='addList' style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>
           <div>
@@ -341,48 +377,78 @@ export default function Home() {
         )}
       </section>
 
-      <section aria-labelledby="items-heading">
+      <section aria-labelledby="items-heading" >
         <h2 id="items-heading" className="update">Items {selectedList ? `in ${selectedList.name}` : ''}</h2>
+         <div>
+          <label htmlFor="sort" style={{ marginRight: 8 }}>Sort</label>
+          <select
+            id="sort"
+            aria-label="Sort items"
+            value={sortParam}
+            onChange={(e) => setSort(e.target.value as SortKey)}
+          >
+            <option value="name">Name</option>
+            <option value="category">Category</option>
+            <option value="date">Date added</option>
+          </select>
+        </div>
         {filteredAndSorted.length === 0 ? (
           <p>No items found.</p>
-          
         ) : (
-          <ul style={{ listStyle: 'none', padding: 0, marginTop: 12 }}>
-            {filteredAndSorted.map((i) => (
-              <li key={i.id} style={{ border: '1px solid #ddd', padding: 12, borderRadius: 8, marginBottom: 8 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                  
-                  <div style={{ minWidth: 200 }}>
-                    <strong>{i.name}</strong>
-                    <div style={{ fontSize: 12, color: '#555' }}>Qty: {i.quantity} • Category: {i.category || '—'} • {new Date(i.createdAt).toLocaleString()}</div>
-                    {i.notes && <div style={{ marginTop: 4 }}>{i.notes}</div>}
-                    {i.images?.length ? (
-                      <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
-                        {i.images.map((src, idx) => (
-                          <img key={idx} src={src} alt={`${i.name} ${idx + 1}`} style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 4 }} />
-                        ))}
+          <div style={{ overflowX: 'auto', marginTop: 12 }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', borderSpacing: 0, border: '1px solid black'}}>
+              <thead>
+                <tr>
+                  <th style={{ textAlign: 'left', padding: 8, borderBottom: '1px solid black' }}>Item</th>
+                  <th style={{ textAlign: 'left', padding: 8, borderBottom: '1px solid black' }}>Quantity</th>
+                  <th style={{ textAlign: 'left', padding: 8, borderBottom: '1px solid black' }}>Category</th>
+                  <th style={{ textAlign: 'left', padding: 8, borderBottom: '1px solid black' }}>Notes</th>
+                  <th style={{ textAlign: 'left', padding: 8, borderBottom: '1px solid black' }}>Added</th>
+                  <th style={{ textAlign: 'left', padding: 8, borderBottom: '1px solid black' }}>Images</th>
+                  <th style={{ textAlign: 'left', padding: 8, borderBottom: '1px solid black' }}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredAndSorted.map((i) => (
+                  <tr key={i.id}>
+                    <td style={{ padding: 8 }}><strong>{i.name}</strong></td>
+                    <td style={{ padding: 8 }}>{i.quantity}</td>
+                    <td style={{ padding: 8 }}>{i.category || '—'}</td>
+                    <td style={{ padding: 8 }}>{i.notes || '—'}</td>
+                    <td style={{ padding: 8 }}>{new Date(i.createdAt).toLocaleString()}</td>
+                    <td style={{ padding: 8 }}>
+                      {i.images?.length ? (
+                        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                          {i.images.map((src, idx) => (
+                            <img key={idx} src={src} alt={`${i.name} ${idx + 1}`} style={{ width: 36, height: 36, objectFit: 'cover', borderRadius: 4 }} />
+                          ))}
+                        </div>
+                      ) : '—'}
+                    </td>
+                    <td style={{ padding: 8 }}>
+                      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                        <button
+                          onClick={() => {
+                            const name = prompt('Edit name', i.name) ?? i.name
+                            const quantity = Number((prompt('Edit quantity', String(i.quantity)) ?? i.quantity))
+                            const notes = prompt('Edit notes', i.notes ?? '') ?? i.notes
+                            const category = prompt('Edit category', i.category ?? '') ?? i.category
+                            dispatch(updateItem({ listId: selectedList!.id, itemId: i.id, changes: { name, quantity, notes: notes || undefined, category } }))
+                          }}
+                          aria-label={`Edit ${i.name}`}
+                        >Edit</button>
+                        <button onClick={() => dispatch(deleteItem({ listId: selectedList!.id, itemId: i.id }))} aria-label={`Delete ${i.name}`}>Delete</button>
                       </div>
-                    ) : null}
-                  </div>
-                  <div style={{ display: 'flex', gap: 6 }}>
-                    <button
-                      onClick={() => {
-                        const name = prompt('Edit name', i.name) ?? i.name
-                        const quantity = Number(prompt('Edit quantity', String(i.quantity)) ?? i.quantity)
-                        const notes = prompt('Edit notes', i.notes ?? '') ?? i.notes
-                        const category = prompt('Edit category', i.category ?? '') ?? i.category
-                        dispatch(updateItem({ listId: selectedList!.id, itemId: i.id, changes: { name, quantity, notes: notes || undefined, category } }))
-                      }}
-                      aria-label={`Edit ${i.name}`}
-                    >Edit</button>
-                    <button onClick={() => dispatch(deleteItem({ listId: selectedList!.id, itemId: i.id }))} aria-label={`Delete ${i.name}`}>Delete</button>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </section>
+      </div>  
+    </div>
     </div>
   )
 }
