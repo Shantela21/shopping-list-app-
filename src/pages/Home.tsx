@@ -46,6 +46,21 @@ export default function Home() {
     [lists, selectedListId]
   )
 
+  // Filter lists by list name or any item fields (name, category, notes)
+  const filteredLists = useMemo(() => {
+    if (!q) return lists
+    const ql = q.toLowerCase()
+    return lists.filter((l) => {
+      const inListName = l.name.toLowerCase().includes(ql)
+      const inItems = l.items?.some((i) => (
+        (i.name || '').toLowerCase().includes(ql) ||
+        (i.category || '').toLowerCase().includes(ql) ||
+        (i.notes || '').toLowerCase().includes(ql)
+      ))
+      return inListName || inItems
+    })
+  }, [lists, q])
+
   // Fetch lists for the logged-in user
   useEffect(() => {
     const email = user?.email
@@ -166,8 +181,13 @@ export default function Home() {
 
   const filteredAndSorted = useMemo(() => {
     const items = selectedList?.items ?? []
+    const ql = q.toLowerCase()
     const filtered = q
-      ? items.filter((i) => i.name.toLowerCase().includes(q.toLowerCase()))
+      ? items.filter((i) => (
+          (i.name || '').toLowerCase().includes(ql) ||
+          (i.category || '').toLowerCase().includes(ql) ||
+          (i.notes || '').toLowerCase().includes(ql)
+        ))
       : items
     const sorted = [...filtered].sort((a, b) => {
       if (sortParam === 'name') return a.name.localeCompare(b.name)
@@ -217,11 +237,11 @@ export default function Home() {
       <p style={{ textAlign: 'center', marginBottom: 24, marginTop: 24,}}>Manage your shopping lists below.</p>
       
       <div className='searchBar'>
-          <label htmlFor="search" className="sr-only">Search items</label>
+          <label htmlFor="search" className="sr-only">Search lists and items</label>
           <input
             id="search"
-            aria-label="Search items by name"
-            placeholder="Search items by name"
+            aria-label="Search by list name, item name, category, or notes"
+            placeholder="Search lists, items, categories, notes"
             value={q}
             onChange={(e) => setQuery(e.target.value)}
             className="input-login"
@@ -235,8 +255,9 @@ export default function Home() {
       <section aria-labelledby="lists-heading" style={{ marginBottom: 24,padding:'10px', width:'50%'
       }}>
         <h2 id="lists-heading" className="update">Shopping Lists</h2>
+        
         <div className='addList' style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'stretch' }}>
-          {lists.map((l) => (
+          {filteredLists.map((l) => (
             <button
               key={l.id}
               onClick={() => { dispatch(selectList({ id: l.id })) }}
@@ -435,9 +456,9 @@ export default function Home() {
                             const category = prompt('Edit category', i.category ?? '') ?? i.category
                             dispatch(updateItem({ listId: selectedList!.id, itemId: i.id, changes: { name, quantity, notes: notes || undefined, category } }))
                           }}
-                          aria-label={`Edit ${i.name}`}
+                          aria-label={`Edit ${i.name}`} style={{ cursor: 'pointer', }}
                         >Edit</button>
-                        <button onClick={() => dispatch(deleteItem({ listId: selectedList!.id, itemId: i.id }))} aria-label={`Delete ${i.name}`}>Delete</button>
+                        <button onClick={() => dispatch(deleteItem({ listId: selectedList!.id, itemId: i.id }))} aria-label={`Delete ${i.name}`} style={{ cursor: 'pointer' }}>Delete</button>
                       </div>
                     </td>
                   </tr>
