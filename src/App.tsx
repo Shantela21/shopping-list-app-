@@ -18,7 +18,7 @@ import About from "./pages/About";
 function App() {
   return (
     <div className="app-shell">
-      <Navbar />
+     
       <div className="app-content">
       <Routes>
         <Route element={<PublicOnlyRoute />}> 
@@ -39,7 +39,7 @@ function App() {
         <Route path="/terms" element={<Terms/>} />
       </Routes>
       </div>
-      <Footer />
+     
     </div>
   );
 }

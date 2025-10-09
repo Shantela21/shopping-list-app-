@@ -1,1 +1,2 @@
-import { createSlice } from '@reduxjs/toolkit'
+export * from './ShoppingSlice'
+export { default } from './ShoppingSlice'

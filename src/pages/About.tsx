@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../reduxHooks'
 import { incrementPageViews, toggleFeedback } from '../features/AboutSlice'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 export default function About() {
   const dispatch = useAppDispatch()
@@ -24,11 +26,19 @@ export default function About() {
   }, [dispatch])
 
   return (
-    <main style={{ maxWidth: 800, margin: '0 auto', padding: 16 }}>
+    <div>
+      <Navbar/>
+    
+    <main style={{ maxWidth: 800,height:"100vh", margin: '0 auto', padding: 16 }}>
       <h1>About CartLogic</h1>
-      <p>
+      <p style={{gap:'10px'}}>
         Plan groceries, avoid duplicates, and save time. Add quantities, notes, categories, and images for quick
         recognition.
+      </p>
+       <p>
+        Our Shopping List App helps you stay organized and efficient — whether you’re 
+        planning weekly meals or managing household supplies. Create lists, share them, 
+        and track your purchases all in one place.
       </p>
 
       <section aria-labelledby="stats-heading" style={{ marginTop: 16 }}>
@@ -39,10 +49,11 @@ export default function About() {
       <section aria-labelledby="feedback-heading" style={{ marginTop: 24 }}>
         <h2 id="feedback-heading">Feedback</h2>
         <button
-          className="btn"
+          className="feedbackBtn"
           onClick={() => dispatch(toggleFeedback())}
           aria-expanded={feedbackOpen}
           aria-controls="feedback-panel"
+          
         >
           {feedbackOpen ? 'Hide feedback' : 'Leave feedback'}
         </button>
@@ -86,11 +97,13 @@ export default function About() {
                 rows={4}
                 required
               />
-              <button type="submit" className="btn">Send feedback</button>
+              <button type="submit" className="feedbackBtn">Send feedback</button>
             </form>
           </div>
         )}
       </section>
     </main>
+    <Footer/>
+    </div>
   )
 }

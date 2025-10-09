@@ -1,5 +1,10 @@
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
+
 export default function Privacy() {
   return (
+    <div>
+      <Navbar/>
     <main className="privacy-policy" >
       <h1 className="privacy-policy-title" >Privacy Policy</h1>
       <p >Effective date: October 2, 2025</p>
@@ -141,5 +146,7 @@ export default function Privacy() {
         </p>
       </section>
     </main>
+    <Footer/>
+    </div>
   )
 }

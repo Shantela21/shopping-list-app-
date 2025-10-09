@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import heroImg from '../assets/grocery-list-for-shopping-in-the-store-shopping-list-with-marks-paper-bag-full-of-food-fruit-products-grocery-goods-buying-food-in-supermarket-illustration-vector.jpg'
 import { useRef, useState } from 'react'
+import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
 
 export default function LandingPage() {
   const navigate = useNavigate()
@@ -24,8 +26,9 @@ export default function LandingPage() {
   const onLeave = () => setCardTransform('rotateX(0deg) rotateY(0deg)')
 
   return (
-    
-    <main style={{ padding: 24 }}>
+    <div>
+      <Navbar/>
+    <main style={{ padding: "24px",height:"100vh" }}>
       {/* Hero */}
       <section className="landing-hero" style={{ display: 'grid', gap: 24, alignItems: 'center', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', maxWidth: 1100, margin: '0 auto 40px', perspective: 1000 }}>
         <div>
@@ -58,7 +61,8 @@ export default function LandingPage() {
             className="hero-card"
             onMouseMove={onMove}
             onMouseLeave={onLeave}
-            style={{ transform: cardTransform }}
+            style={{ transform: cardTransform, marginTop:40
+             }}
           >
             <img src={heroImg} alt="Groceries neatly organized for shopping" className="hero-image" />
           </div>
@@ -67,8 +71,9 @@ export default function LandingPage() {
 
       {/* Features */}
       <section style={{ maxWidth: 1100, margin: '0 auto' }} aria-labelledby="features-heading">
-        <h2 id="features-heading" className="update" style={{ fontSize: 24, marginBottom: 27}}>Why use Shopping List?</h2>
-        <div style={{ display: 'grid', gap: 16, gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))' }}>
+        <h2 id="features-heading" className="update" style={{ fontSize: 24,marginTop: 50, marginBottom: 40}}>Why use Shopping List?</h2>
+
+        <div style={{ display: 'grid', gap: 20, gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))' }}>
           <article className="feature-card" style={{ border: '1px solid #eee', borderRadius: 10, padding: 16 }}>
             <h3 style={{ marginBottom: 8 }}>Fast and simple</h3>
             <p style={{ color: '#555' }}>Add items in seconds, adjust quantities, and keep your list focused.</p>
@@ -88,5 +93,7 @@ export default function LandingPage() {
         </div>
       </section>
     </main>
+    <Footer/>
+    </div>
   )
 }

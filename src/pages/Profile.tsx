@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useAppSelector } from '../../reduxHooks'
 import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
 
 export default function Profile() {
   const user = useAppSelector((s) => s.register.user)
@@ -20,6 +21,8 @@ export default function Profile() {
   }
 
   return (
+    <div>
+      {/* <Navbar/> */}
     <div className="containers">
     <div className="container-profile">
       <h1 className='profile-title'>Profile</h1>
@@ -37,6 +40,8 @@ export default function Profile() {
       
       
     </div>
+    </div>
+    {/* <Footer/> */}
     </div>
   )
 }
