@@ -1,4 +1,4 @@
- import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../reduxHooks'
 import { logout } from '../features/RegisterSlice'
@@ -11,8 +11,8 @@ import {
   selectList,
   updateItem,
   fetchLists,
-} from '../features/ShoppingSlice'
-import type { ShoppingItem } from '../features/ShoppingSlice'
+} from '../features/HomeSlice'
+import type { ShoppingItem } from '../features/HomeSlice'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'

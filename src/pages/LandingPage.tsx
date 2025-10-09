@@ -61,7 +61,8 @@ export default function LandingPage() {
             className="hero-card"
             onMouseMove={onMove}
             onMouseLeave={onLeave}
-            style={{ transform: cardTransform }}
+            style={{ transform: cardTransform, marginTop:40
+             }}
           >
             <img src={heroImg} alt="Groceries neatly organized for shopping" className="hero-image" />
           </div>
@@ -70,8 +71,9 @@ export default function LandingPage() {
 
       {/* Features */}
       <section style={{ maxWidth: 1100, margin: '0 auto' }} aria-labelledby="features-heading">
-        <h2 id="features-heading" className="update" style={{ fontSize: 24, marginBottom: 27}}>Why use Shopping List?</h2>
-        <div style={{ display: 'grid', gap: 16, gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))' }}>
+        <h2 id="features-heading" className="update" style={{ fontSize: 24,marginTop: 50, marginBottom: 40}}>Why use Shopping List?</h2>
+
+        <div style={{ display: 'grid', gap: 20, gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))' }}>
           <article className="feature-card" style={{ border: '1px solid #eee', borderRadius: 10, padding: 16 }}>
             <h3 style={{ marginBottom: 8 }}>Fast and simple</h3>
             <p style={{ color: '#555' }}>Add items in seconds, adjust quantities, and keep your list focused.</p>
