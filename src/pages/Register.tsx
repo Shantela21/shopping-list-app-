@@ -39,14 +39,14 @@ export default function Register() {
 
   return (
     <div>
-      <form onSubmit={onSubmit} className="register-form">
-        <div className="container">
+      <form onSubmit={onSubmit} className="container">
+        <div className="container-register">
           <h1>Register</h1>
           <p>Please fill in this form to create an account.</p>
           <hr />
 
-          <label htmlFor="name"><b>Name</b></label>
-          <input className='input-login'
+          <label  htmlFor="name"><b>Name</b></label>
+          <input className='input-register'
             type="text"
             placeholder="Enter Name"
             id="name"
@@ -56,7 +56,7 @@ export default function Register() {
           />
 
           <label htmlFor="surname"><b>Surname</b></label>
-          <input className='input-login'
+          <input className='input-register'
             type="text"
             placeholder="Enter Surname"
             id="surname"
@@ -66,7 +66,7 @@ export default function Register() {
           />
 
           <label htmlFor="cell"><b>Cell number</b></label>
-          <input className='input-login'
+          <input className='input-register'
             type="tel"
             placeholder="Enter Cell Number"
             id="cell"
@@ -76,7 +76,7 @@ export default function Register() {
           />
 
           <label htmlFor="email"><b>Email</b></label>
-          <input className='input-login'
+          <input className='input-register'
             type="email"
             placeholder="Enter Email"
             id="email"
@@ -86,7 +86,7 @@ export default function Register() {
           />
 
           <label htmlFor="psw"><b>Password</b></label>
-          <input className='input-login'
+          <input className='input-register'
             type="password"
             placeholder="Enter Password"
             id="psw"
@@ -97,7 +97,7 @@ export default function Register() {
 
           <hr />
           <p>
-            By creating an account you agree to our <a href="#">Terms & Privacy</a>.
+            By creating an account you agree to our <a href="/Terms">Terms & Privacy</a>.
           </p>
 
           <button type="submit" className="registerbtn">Register</button>
