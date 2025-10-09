@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../reduxHooks'
 import { incrementPageViews, toggleFeedback } from '../features/AboutSlice'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 export default function About() {
   const dispatch = useAppDispatch()
@@ -24,6 +26,9 @@ export default function About() {
   }, [dispatch])
 
   return (
+    <div>
+      <Navbar/>
+    
     <main style={{ maxWidth: 800, margin: '0 auto', padding: 16 }}>
       <h1>About CartLogic</h1>
       <p style={{gap:'10px'}}>
@@ -98,5 +103,7 @@ export default function About() {
         )}
       </section>
     </main>
+    <Footer/>
+    </div>
   )
 }

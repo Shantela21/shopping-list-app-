@@ -14,6 +14,8 @@ import {
 } from '../features/ShoppingSlice'
 import type { ShoppingItem } from '../features/ShoppingSlice'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 type SortKey = 'name' | 'category' | 'date'
 
@@ -233,6 +235,7 @@ export default function Home() {
   return (
     
     <div className="containerHome" >
+      <Navbar />
       <h1 style={{ textAlign: 'center', marginBottom: 24, marginTop: 24, }}>Welcome{user ? `, ${user.name}` : ''}!</h1> 
       <p style={{ textAlign: 'center', marginBottom: 24, marginTop: 24,}}>Manage your shopping lists below.</p>
       
@@ -470,6 +473,7 @@ export default function Home() {
       </section>
       </div>  
     </div>
+    <Footer />
     </div>
   )
 }

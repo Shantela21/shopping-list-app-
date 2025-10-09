@@ -1,5 +1,10 @@
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
+
 export default function Terms() {
   return (
+    <div>
+      <Navbar/>
     <div className="privacy-policy">
       <h1>Terms and Conditions</h1>
 
@@ -74,6 +79,9 @@ export default function Terms() {
       <p>
         If you have any questions about these Terms, please visit our Contact page or email our support team.
       </p>
+     
+    </div>
+     <Footer />
     </div>
   )
 }

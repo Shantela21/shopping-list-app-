@@ -61,10 +61,10 @@ export default function EditProfile() {
 
   return (
     <div className="containers-edit">
-      <h1 className="profile-title">Edit Profile</h1>
+      
 
-      <form onSubmit={saveProfile} style={{ marginBottom: 24 }}>
-        <h2  className='update'>Profile Details</h2>
+      <form className='login' onSubmit={saveProfile} >
+        <h2  className='update'>Edit Profile</h2>
         <label htmlFor="name"><b>Name</b></label>
         <input className='input-login' id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
 
@@ -81,7 +81,7 @@ export default function EditProfile() {
         {profSaved && <p role="status">Profile updated</p>}
       </form>
 
-      <form onSubmit={saveCredentials}>
+      <form className='login' onSubmit={saveCredentials}>
         <h2 className='update'>Update Password</h2>
         <label htmlFor="current"><b>Current password</b></label>
         <input className='input-login' id="current" type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} required />

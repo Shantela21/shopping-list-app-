@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import heroImg from '../assets/grocery-list-for-shopping-in-the-store-shopping-list-with-marks-paper-bag-full-of-food-fruit-products-grocery-goods-buying-food-in-supermarket-illustration-vector.jpg'
 import { useRef, useState } from 'react'
+import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
 
 export default function LandingPage() {
   const navigate = useNavigate()
@@ -24,7 +26,8 @@ export default function LandingPage() {
   const onLeave = () => setCardTransform('rotateX(0deg) rotateY(0deg)')
 
   return (
-    
+    <div>
+      <Navbar/>
     <main style={{ padding: 24 }}>
       {/* Hero */}
       <section className="landing-hero" style={{ display: 'grid', gap: 24, alignItems: 'center', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', maxWidth: 1100, margin: '0 auto 40px', perspective: 1000 }}>
@@ -88,5 +91,7 @@ export default function LandingPage() {
         </div>
       </section>
     </main>
+    <Footer/>
+    </div>
   )
 }

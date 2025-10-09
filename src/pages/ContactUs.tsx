@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
 
 interface FormState {
   name: string
@@ -39,6 +41,8 @@ export default function ContactUs() {
   }
 
   return (
+    <div>
+      <Navbar/>
     <div className="container">
     
       <form onSubmit={onSubmit}  aria-labelledby="contact-heading">
@@ -102,6 +106,8 @@ export default function ContactUs() {
           {status && <div role="status" style={{ marginTop: 8 }}>{status}</div>}
         </div>
       </form>
+    </div>
+    <Footer/>
     </div>
   )
 }
