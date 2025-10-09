@@ -3,6 +3,8 @@ import { useAppDispatch, useAppSelector } from '../../reduxHooks'
 import { updateProfile, updateCredentials } from '../features/RegisterSlice'
 import CryptoJS from 'crypto-js'
 import { Navigate } from 'react-router-dom'
+import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
 
 export default function EditProfile() {
   const dispatch = useAppDispatch()
@@ -60,6 +62,8 @@ export default function EditProfile() {
   }
 
   return (
+    <div>
+      <Navbar/>
     <div className="containers-edit">
       
 
@@ -77,7 +81,7 @@ export default function EditProfile() {
         <label htmlFor="email"><b>Email</b></label>
         <input className='input-login' id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
 
-        <button type="submit">Save profile</button>
+        <button className='updateBtn' type="submit">Save profile</button>
         {profSaved && <p role="status">Profile updated</p>}
       </form>
 
@@ -96,6 +100,8 @@ export default function EditProfile() {
         <button type="submit">Update password</button>
         {credSaved && <p role="status">Password updated</p>}
       </form>
+    </div>
+    <Footer/>
     </div>
   )
 }

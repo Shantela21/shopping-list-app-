@@ -1,12 +1,13 @@
 import { NavLink, Link } from 'react-router-dom'
 import logo from '../assets/images__1_-removebg-preview.png'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch } from '../../reduxHooks'
+import { useAppDispatch, useAppSelector } from '../../reduxHooks'
 import { logout } from '../features/RegisterSlice'
 
 export default function Navbar() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const { user, isAuthenticated } = useAppSelector((s) => s.register)
 
   const onLogout = () => {
     const ok = confirm('Do you really want to logout?')
@@ -23,16 +24,20 @@ export default function Navbar() {
         </Link>
         <NavLink  to="/home" style={{ textDecoration: 'none', color: 'white'}}>Home</NavLink>
       
-        <NavLink to="/profile" style={{ textDecoration: 'none', color: 'white' }}>Profile</NavLink>
-        <Link
-          to="/"
-          onClick={(e) => { e.preventDefault(); onLogout() }}
-          style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', color: 'white' }}
-          aria-label="Logout"
-          role="button"
-        >
-          Logout
-        </Link>
+        {(user || isAuthenticated) && (
+          <NavLink to="/profile" style={{ textDecoration: 'none', color: 'white' }}>Profile</NavLink>
+        )}
+        {(user || isAuthenticated) && (
+          <Link
+            to="/"
+            onClick={(e) => { e.preventDefault(); onLogout() }}
+            style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', color: 'white' }}
+            aria-label="Logout"
+            role="button"
+          >
+            Logout
+          </Link>
+        )}
         
       </nav>
     </div>

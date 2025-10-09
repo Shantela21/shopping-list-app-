@@ -43,7 +43,7 @@ export default function ContactUs() {
   return (
     <div>
       <Navbar/>
-    <div className="container">
+    <div className="container" style={{height:"100vh"}}>
     
       <form onSubmit={onSubmit}  aria-labelledby="contact-heading">
         <h2 id="contact-heading" className="update" style={{ fontSize: 24, marginBottom: 27, marginTop: 24}}>Get in touch with us.</h2>

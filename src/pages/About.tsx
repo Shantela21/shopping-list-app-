@@ -29,7 +29,7 @@ export default function About() {
     <div>
       <Navbar/>
     
-    <main style={{ maxWidth: 800, margin: '0 auto', padding: 16 }}>
+    <main style={{ maxWidth: 800,height:"100vh", margin: '0 auto', padding: 16 }}>
       <h1>About CartLogic</h1>
       <p style={{gap:'10px'}}>
         Plan groceries, avoid duplicates, and save time. Add quantities, notes, categories, and images for quick
