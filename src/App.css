@@ -439,7 +439,7 @@ body,
 /* 📱 RESPONSIVE MEDIA QUERIES */
 
 /* Small devices (phones, up to 480px) */
-/* @media (max-width: 480px) {
+@media (max-width: 480px) {
 
   .navbar {
     flex-direction: column;
@@ -492,10 +492,10 @@ body,
     font-size: 16px;
     padding: 15px 0;
   }
-} */
+}
 
 /* Medium devices (tablets, up to 768px) */
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
 
   .navbar {
     flex-direction: column;
@@ -525,10 +525,10 @@ body,
   .footer {
     font-size: 18px;
   }
-} */
+}
 
 /* Large devices (laptops, up to 1024px) */
-/* @media (max-width: 1024px) {
+@media (max-width: 1024px) {
 
   .container,
   .containers,
@@ -545,5 +545,5 @@ body,
   .container-profile {
     width: 60%;
   }
-} */
+}
 

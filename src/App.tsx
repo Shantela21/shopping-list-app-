@@ -24,6 +24,7 @@ function App() {
         <Route element={<PublicOnlyRoute />}> 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/" element={<LandingPage />} />
         </Route>
 
         <Route element={<ProtectedRoute />}>
@@ -31,7 +32,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
         </Route>
-        <Route path="/" element={<LandingPage />} />
+        
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<ContactUs />} />

@@ -459,9 +459,9 @@ export default function Home() {
                             const category = prompt('Edit category', i.category ?? '') ?? i.category
                             dispatch(updateItem({ listId: selectedList!.id, itemId: i.id, changes: { name, quantity, notes: notes || undefined, category } }))
                           }}
-                          aria-label={`Edit ${i.name}`} style={{ cursor: 'pointer', }}
+                          aria-label={`Edit ${i.name}`} style={{ cursor: 'pointer', border: '1px solid green', padding: 2, borderRadius: 4}}
                         >Edit</button>
-                        <button onClick={() => dispatch(deleteItem({ listId: selectedList!.id, itemId: i.id }))} aria-label={`Delete ${i.name}`} style={{ cursor: 'pointer' }}>Delete</button>
+                        <button  onClick={() => dispatch(deleteItem({ listId: selectedList!.id, itemId: i.id }))} aria-label={`Delete ${i.name}`} style={{ cursor: 'pointer',border: '1px solid red', padding: 2, borderRadius: 4}}>Delete</button>
                       </div>
                     </td>
                   </tr>

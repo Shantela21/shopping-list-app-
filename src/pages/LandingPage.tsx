@@ -28,7 +28,7 @@ export default function LandingPage() {
   return (
     <div>
       <Navbar/>
-    <main style={{ padding: "24px",height:"100vh" }}>
+    <main style={{ padding: "24px" }}>
       {/* Hero */}
       <section className="landing-hero" style={{ display: 'grid', gap: 24, alignItems: 'center', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', maxWidth: 1100, margin: '0 auto 40px', perspective: 1000 }}>
         <div>
