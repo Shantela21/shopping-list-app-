@@ -485,30 +485,6 @@ body,
   .privacy-policy {
     padding: 15px;
     margin: 15px;
-    font-size: 0.9rem;
-  }
-
-  .footer {
-    font-size: 16px;
-    padding: 15px 0;
-  }
-}
-
-/* Medium devices (tablets, up to 768px) */
-@media (max-width: 768px) {
-
-  .navbar {
-    flex-direction: column;
-    gap: 10px;
-    font-size: 18px;
-  }
-
-  .container,
-  .containers,
-  .containers-edit {
-    flex-direction: column;
-    gap: 15px;
-    padding: 15px;
   }
 
   .container-register,
@@ -518,32 +494,4 @@ body,
     margin-top: 80px;
   }
 
-  .hero-card {
-    max-width: 90%;
-  }
-
-  .footer {
-    font-size: 18px;
-  }
 }
-
-/* Large devices (laptops, up to 1024px) */
-@media (max-width: 1024px) {
-
-  .container,
-  .containers,
-  .containers-edit {
-    flex-wrap: wrap;
-  }
-
-  .hero-card {
-    max-width: 600px;
-  }
-
-  .container-register,
-  .login,
-  .container-profile {
-    width: 60%;
-  }
-}
-
