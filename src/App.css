@@ -218,7 +218,84 @@ body,
   width: 100%;
 }
 
-.addListBtn{
+/* Home Page Styles */
+.home-header {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1a6899;
+  margin: 20px 0 8px;
+}
+
+.home-subheader {
+  text-align: center;
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.searchBar {
+  max-width: 600px;
+  margin: 0 auto 24px;
+  padding: 0 20px;
+}
+
+.home-layout {
+  flex: 1 0 auto;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+.lists-panel {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.list-grid {
+  margin-bottom: 20px;
+}
+
+.list-card {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.list-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.list-card--active {
+  border: 2px solid #87CEFA !important;
+  box-shadow: 0 4px 12px rgba(135, 206, 250, 0.4);
+}
+
+.list-cover-preview {
+  margin-top: 12px;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 300px;
+}
+
+.list-cover-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.shareLogout {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.addListBtn {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 12px;
   margin: 8px 0;
@@ -701,6 +778,26 @@ body,
 
   .update {
     font-size: 1.2rem;
+  }
+
+  .home-header {
+    font-size: 1.5rem;
+  }
+
+  .home-layout {
+    padding: 0 10px 20px;
+  }
+
+  .lists-panel {
+    padding: 16px;
+  }
+
+  .list-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .searchBar {
+    padding: 0 10px;
   }
 
 }
