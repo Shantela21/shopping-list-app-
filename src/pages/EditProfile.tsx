@@ -97,7 +97,7 @@ export default function EditProfile() {
         <input className='input-login' id="confirm" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
 
         {credError && <p role="alert" style={{ color: 'red' }}>{credError}</p>}
-        <button type="submit">Update password</button>
+        <button className='updateBtn' type="submit">Update password</button>
         {credSaved && <p role="status">Password updated</p>}
       </form>
     </div>

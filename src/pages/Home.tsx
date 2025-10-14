@@ -256,62 +256,137 @@ export default function Home() {
       <section aria-labelledby="lists-heading" className="lists-panel">
         <h2 id="lists-heading" className="update">Shopping Lists</h2>
         
-        <div className="list-grid">
+        <div
+          className="list-grid"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+            gap: '16px',
+            alignItems: 'stretch',
+          }}
+        >
           {filteredLists.map((l) => (
             <button
               key={l.id}
               onClick={() => { dispatch(selectList({ id: l.id })); navigate(`/home/${l.id}`) }}
               aria-pressed={selectedList?.id === l.id}
               className={selectedList?.id === l.id ? 'list-card list-card--active' : 'list-card'}
+              style={{
+                height: '260px',
+                display: 'flex',
+                flexDirection: 'column',
+                border: '1px solid #eee',
+                borderRadius: 12,
+                overflow: 'hidden',
+                background: '#fff',
+                textAlign: 'left',
+              }}
             >
               {l.coverImage ? (
-                <img src={l.coverImage} alt={`${l.name} cover`} className="list-card-cover" />
+                <img
+                  src={l.coverImage}
+                  alt={`${l.name} cover`}
+                  className="list-card-cover"
+                  style={{ width: '100%', height: '140px', objectFit: 'cover', background: '#f3f4f6' }}
+                />
               ) : (
-                <div className="list-card-cover" />
+                <div
+                  className="list-card-cover"
+                  style={{ width: '100%', height: '140px', background: '#f3f4f6' }}
+                />
               )}
-              <div className="list-card-body">
+              <div
+                className="list-card-body"
+                style={{
+                  padding: 12,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 6,
+                  flexGrow: 1,
+                  justifyContent: 'space-between',
+                }}
+              >
                 <div style={{ fontWeight: 700 }}>{l.name}</div>
                 <div style={{ fontSize: 12, color: '#666' }}>{l.items.length} items</div>
               </div>
             </button>
           ))}
         </div>
-        <div className="actions-row">
-          <input
-            aria-label="New list name"
-            placeholder="New list name"
-            value={newListName}
-            onChange={(e) => setNewListName(e.target.value)}
-            className="input-login"
-          />
-          <input
-            ref={listCoverRef}
-            type="file"
-            accept="image/*"
-            aria-label="List cover image"
-            onChange={async (e) => {
-              const f = e.target.files?.[0]
-              if (!f) { setNewListImage(null); return }
-              const reader = new FileReader()
-              reader.onload = () => setNewListImage(String(reader.result))
-              reader.readAsDataURL(f)
-            }}
-          />
-          <button className='addListBtn' onClick={onCreateList}>Add List</button>
-          {selectedList && (
-            <>
-              <input
-                aria-label="Rename selected list"
-                placeholder={`Rename: ${selectedList.name}`}
-                value={editingListName}
-                onChange={(e) => setEditingListName(e.target.value)}
-                className="input-login"
-              />
-              <button  className='addListBtn' onClick={onRenameList}>Rename</button>
-              <button  className='addListBtn' onClick={() => onDeleteList(selectedList.id)}>Delete List</button>
-            </>
-          )}
+        <div
+          className="actions-row"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr auto',
+            gap: 12,
+            alignItems: 'end',
+            background: '#fff',
+            border: '1px solid #eaeaea',
+            borderRadius: 12,
+            padding: 12,
+            boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
+            marginTop: 12,
+          }}
+        >
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+            <input
+              aria-label="New list name"
+              placeholder="New list name"
+              value={newListName}
+              onChange={(e) => setNewListName(e.target.value)}
+              className="input-login"
+              style={{ flex: '1 1 260px' }}
+            />
+            <input
+              ref={listCoverRef}
+              type="file"
+              accept="image/*"
+              aria-label="List cover image"
+              onChange={async (e) => {
+                const f = e.target.files?.[0]
+                if (!f) { setNewListImage(null); return }
+                const reader = new FileReader()
+                reader.onload = () => setNewListImage(String(reader.result))
+                reader.readAsDataURL(f)
+              }}
+              style={{ flex: '1 1 260px' }}
+            />
+          </div>
+          <button
+            className='addListBtn'
+            onClick={onCreateList}
+            style={{ width: 'auto', padding: '12px 16px' }}
+          >
+            Add List
+          </button>
         </div>
+
+        {selectedList && (
+          <div
+            className="actions-row"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr auto auto',
+              gap: 12,
+              alignItems: 'end',
+              background: '#fff',
+              border: '1px solid #eaeaea',
+              borderRadius: 12,
+              padding: 12,
+              boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
+              marginTop: 12,
+            }}
+          >
+            <input
+              aria-label="Rename selected list"
+              placeholder={`Rename: ${selectedList.name}`}
+              value={editingListName}
+              onChange={(e) => setEditingListName(e.target.value)}
+              className="input-login"
+            />
+            <button className='addListBtn' onClick={onRenameList} style={{ width: 'auto', padding: '12px 16px' }}>Rename</button>
+            <button className='addListBtn' onClick={() => onDeleteList(selectedList.id)} style={{ width: 'auto', padding: '12px 16px' }}>Delete List</button>
+          </div>
+        )}
         {newListImage && (
           <div className="list-cover-preview">
             <img src={newListImage} alt="New list cover preview" />

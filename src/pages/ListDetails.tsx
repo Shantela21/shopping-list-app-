@@ -102,7 +102,16 @@ export default function ListDetails() {
       <p className="details-subheader">Add items to your shopping list.</p>
 
       <div className="details-wrap">
-        <section aria-labelledby="add-item-heading" className="container-profile" style={{ marginBottom: 24 }}>
+        <section aria-labelledby="add-item-heading" className="container-profile" style={{   border: '1px solid #e0e0e0',
+    borderRadius: '12px',
+    padding: '24px',
+    maxWidth: '400px',
+    margin: '40px auto',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+    background: '#fff',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch' }}>
           <h2 id="add-item-heading">Add Item</h2>
           <div className='addList' style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>
             <div>
