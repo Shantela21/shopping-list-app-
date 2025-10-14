@@ -106,7 +106,7 @@ npm run dev
 ```
 ## 4️⃣ Start json-server (Mock API)
 ```bash
-npm run json:server
+npx json-server src/data/db.json --watch  --port 5000
 ```
 The mock API will be available at:
 👉 http://localhost:5000
