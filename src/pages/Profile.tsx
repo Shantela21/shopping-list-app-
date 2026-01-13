@@ -1,10 +1,9 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAppSelector } from '../../reduxHooks'
-import Footer from '../components/Footer'
-import Navbar from '../components/Navbar'
 
 export default function Profile() {
   const user = useAppSelector((s) => s.register.user)
+  const navigate = useNavigate()
 
   // If there is no logged-in/registered user, show a helpful message
   if (!user) {
@@ -23,7 +22,24 @@ export default function Profile() {
   return (
     <div>
       {/* <Navbar/> */}
-    <div className="containers">
+      <div style={{ padding: '20px' }}>
+        <button 
+          onClick={() => navigate(-1)} 
+          className="back-button"
+          style={{
+            padding: '8px 16px',
+            backgroundColor: '#007bff',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            fontSize: '14px'
+          }}
+        >
+          ← Back
+        </button>
+      </div>
+      <div className="containers">
     <div className="container-profile">
       <h1 className='profile-title'>Profile</h1>
       <section className="profile-summary" style={{ marginBottom: 24 }}>

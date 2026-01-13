@@ -22,10 +22,11 @@ function App() {
      
       <div className="app-content">
       <Routes>
+        <Route path="/" element={<LandingPage />} />
+        
         <Route element={<PublicOnlyRoute />}> 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<LandingPage />} />
         </Route>
 
         <Route element={<ProtectedRoute />}>
