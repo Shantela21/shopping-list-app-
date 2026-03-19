@@ -118,6 +118,7 @@ export default function Home() {
   const [newListName, setNewListName] = useState('')
   const [editingListName, setEditingListName] = useState('')
   const [newListImage, setNewListImage] = useState<string | null>(null)
+  const [isAddListModalOpen, setIsAddListModalOpen] = useState(false)
   const [itemDraft, setItemDraft] = useState({
     name: '',
     quantity: 1,
@@ -140,6 +141,15 @@ export default function Home() {
     if (!name) return
     if (!user?.email) return alert('No user email found. Please log in again.')
     dispatch(createList({ name, userEmail: user.email, coverImage: newListImage ?? undefined }))
+    closeAddListModal()
+  }
+  
+  const openAddListModal = () => {
+    setIsAddListModalOpen(true)
+  }
+  
+  const closeAddListModal = () => {
+    setIsAddListModalOpen(false)
     setNewListName('')
     setNewListImage(null)
     if (listCoverRef.current) listCoverRef.current.value = ''
@@ -234,9 +244,9 @@ export default function Home() {
   }
 
   return (
-    
-    <div className="containerHome" >
+    <div className="app-shell">
       <Navbar />
+      <div className="app-content">
       <h1 className="home-header">Welcome{user ? `, ${user.name}` : ''}!</h1>
       <p className="home-subheader">Manage your shopping lists below.</p>
       
@@ -315,10 +325,9 @@ export default function Home() {
         <div
           className="actions-row"
           style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr auto',
-            gap: 12,
-            alignItems: 'end',
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
             background: '#fff',
             border: '1px solid #eaeaea',
             borderRadius: 12,
@@ -327,33 +336,9 @@ export default function Home() {
             marginTop: 12,
           }}
         >
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
-            <input
-              aria-label="New list name"
-              placeholder="New list name"
-              value={newListName}
-              onChange={(e) => setNewListName(e.target.value)}
-              className="input-login"
-              style={{ flex: '1 1 260px' }}
-            />
-            <input
-              ref={listCoverRef}
-              type="file"
-              accept="image/*"
-              aria-label="List cover image"
-              onChange={async (e) => {
-                const f = e.target.files?.[0]
-                if (!f) { setNewListImage(null); return }
-                const reader = new FileReader()
-                reader.onload = () => setNewListImage(String(reader.result))
-                reader.readAsDataURL(f)
-              }}
-              style={{ flex: '1 1 260px' }}
-            />
-          </div>
           <button
             className='addListBtn'
-            onClick={onCreateList}
+            onClick={openAddListModal}
             style={{ width: 'auto', padding: '12px 16px' }}
           >
             Add List
@@ -387,25 +372,18 @@ export default function Home() {
             <button className='addListBtn' onClick={() => onDeleteList(selectedList.id)} style={{ width: 'auto', padding: '12px 16px' }}>Delete List</button>
           </div>
         )}
-        {newListImage && (
-          <div className="list-cover-preview">
-            <img src={newListImage} alt="New list cover preview" />
-          </div>
-        )}
-         <div className='shareLogout'>
-        <button className='shareBtn' onClick={onShare} aria-label="Share current list" title="Share" >
+      </section>
 
+      {/* Share Button */}
+      <div className='shareLogout' style={{ marginTop: 16, textAlign: 'center' }}>
+        <button className='shareBtn' onClick={onShare} aria-label="Share current list" title="Share" >
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.02-4.11A3.003 3.003 0 0 0 18 7.91c1.66 0 3-1.34 3-3S19.66 1.91 18 1.91 15 3.25 15 4.91c0 .24.04.47.09.7L8.07 9.72A3.003 3.003 0 0 0 6 8.91c-1.66 0-3 1.34-3 3s1.34 3 3 3c.9 0 1.71-.4 2.25-1.03l7.1 4.15c-.03.15-.05.31-.05.47 0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3z"/>
           </svg>
         </button>
-        </div>
-      </section>
-
-
-
-     {/* Details moved to ListDetails page; Home shows only list selection. */}
-    </div>
+      </div>
+      </div>
+      </div>
     <Footer />
     </div>
   )
