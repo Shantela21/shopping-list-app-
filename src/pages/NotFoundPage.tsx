@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 export default function NotFoundPage() {
   return (
+    <div className="app-shell">
+      <Navbar/>
+    <div className="app-content">
     <main style={{ maxWidth: 800, margin: '0 auto', padding: '3rem 1rem', textAlign: 'center', border: '1px solid #ddd', borderRadius: '8px' , height: "83vh"}}>
       <h1 style={{ fontSize: '10rem', marginBottom: '0.5rem', marginTop:"5rem" }}>404</h1>
       <p style={{ fontSize: '1.25rem', color: '#666', marginBottom: '1.5rem' }}>
@@ -13,5 +18,8 @@ export default function NotFoundPage() {
         <Link to="/register" className="btn">Register</Link>
       </div>
     </main>
+    </div>
+    <Footer/>
+    </div>
   )
 }

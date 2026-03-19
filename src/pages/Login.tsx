@@ -5,6 +5,8 @@ import { useNavigate, Link } from 'react-router-dom'
 import CryptoJS from 'crypto-js'
 import { getUserByEmail } from '../api/users'
 import { setUser } from '../features/RegisterSlice'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 
 export default function Login() {
@@ -34,8 +36,10 @@ export default function Login() {
     navigate('/home')
   }
 
-  return (<>
-  
+  return (
+    <div className="app-shell">
+      <Navbar/>
+    <div className="app-content">
     <div className="container">
       
       <form className='login' onSubmit={onSubmit}>
@@ -69,6 +73,8 @@ export default function Login() {
       </form>
        
     </div>
-    </>
+    </div>
+    <Footer/>
+    </div>
   )
 }

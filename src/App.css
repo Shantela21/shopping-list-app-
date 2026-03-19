@@ -16,11 +16,25 @@ body,
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  
 }
 
 .app-content {
   flex: 1 0 auto; 
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure footer is always at the bottom */
+.footer {
+  background-color: rgb(26, 104, 153);
+  text-align: center;
+  padding: 20px 0;
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin-top: auto; /* This pushes footer to bottom */
+  flex-shrink: 0; /* Prevents footer from shrinking */
 }
 
 /* Reverted to original navbar/footer styles */
@@ -661,20 +675,15 @@ body,
   list-style-type: disc;
 }
 
-.footer {
-  background-color: rgb(26, 104, 153);
-  text-align: center;
-  padding: 20px 0;
-  width: 100%;
-  font-size: 20px;
-  font-weight: bold;
-  color:white;
+.privacy-policy ul li {
+  margin-bottom: 10px;
 }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
 
 .btn-3d {
   position: relative;

@@ -1,11 +1,15 @@
 import { useState, type FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../reduxHooks'
-import { register } from '../features/RegisterSlice'
+import { register, loginSuccess } from '../features/RegisterSlice'
 import CryptoJS from 'crypto-js'
 import { createUser, getUserByEmail, type UserDTO } from '../api/users'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 export default function Register() {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const isRegistered = useAppSelector((s) => s.register.isRegistered)
   const [name, setName] = useState('')
   const [surname, setSurname] = useState('')
@@ -30,7 +34,9 @@ export default function Register() {
       const payload: UserDTO = { name, surname, cell, email, passwordCipher }
       const saved = await createUser(payload)
       dispatch(register(saved))
+      dispatch(loginSuccess())
       setPassword('')
+      navigate('/home')
     } catch (err: any) {
       const msg = err?.response?.data || err?.message || 'Unknown error'
       setError(`Failed to register. ${String(msg)}`)
@@ -38,7 +44,9 @@ export default function Register() {
   }
 
   return (
-    <div>
+    <div className="app-shell">
+      <Navbar/>
+      <div className="app-content">
       <form onSubmit={onSubmit} className="container">
         <div className="container-register">
           <h1>Register</h1>
@@ -115,6 +123,8 @@ export default function Register() {
           
        
       </form>
+      </div>
+    <Footer/>
     </div>
   )
 }

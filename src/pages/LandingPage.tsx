@@ -26,8 +26,9 @@ export default function LandingPage() {
   const onLeave = () => setCardTransform('rotateX(0deg) rotateY(0deg)')
 
   return (
-    <div>
+    <div className="app-shell">
       <Navbar/>
+      <div className="app-content">
     <main style={{ padding: "24px" }}>
       {/* Hero */}
       <section className="landing-hero" style={{ display: 'grid', gap: 24, alignItems: 'center', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', maxWidth: 1100, margin: '0 auto 40px', perspective: 1000 }}>
@@ -93,6 +94,7 @@ export default function LandingPage() {
         </div>
       </section>
     </main>
+      </div>
     <Footer/>
     </div>
   )

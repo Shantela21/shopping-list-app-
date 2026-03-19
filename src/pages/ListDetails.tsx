@@ -46,7 +46,20 @@ export default function ListDetails() {
     category: '',
     images: [] as string[],
   })
+  
+  // State for edit modal
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [editingItem, setEditingItem] = useState<ShoppingItem | null>(null)
+  const [editDraft, setEditDraft] = useState({
+    name: '',
+    quantity: 1,
+    notes: '',
+    category: '',
+    images: [] as string[],
+  })
+  
   const fileRef = useRef<HTMLInputElement | null>(null)
+  const editFileRef = useRef<HTMLInputElement | null>(null)
 
   function readFilesAsDataUrls(files: FileList | null): Promise<string[]> {
     if (!files || files.length === 0) return Promise.resolve([])
@@ -64,6 +77,11 @@ export default function ListDetails() {
   const onFilesChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const imgs = await readFilesAsDataUrls(e.target.files)
     setItemDraft((prev) => ({ ...prev, images: imgs }))
+  }
+  
+  const onEditFilesChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const imgs = await readFilesAsDataUrls(e.target.files)
+    setEditDraft((prev) => ({ ...prev, images: imgs }))
   }
 
   const onAddItem = () => {
@@ -84,6 +102,45 @@ export default function ListDetails() {
     )
     setItemDraft({ name: '', quantity: 1, notes: '', category: '', images: [] })
     if (fileRef.current) fileRef.current.value = ''
+  }
+  
+  const openEditModal = (item: ShoppingItem) => {
+    setEditingItem(item)
+    setEditDraft({
+      name: item.name,
+      quantity: item.quantity,
+      notes: item.notes || '',
+      category: item.category || '',
+      images: item.images || [],
+    })
+    setIsEditModalOpen(true)
+  }
+  
+  const closeEditModal = () => {
+    setIsEditModalOpen(false)
+    setEditingItem(null)
+    setEditDraft({ name: '', quantity: 1, notes: '', category: '', images: [] })
+    if (editFileRef.current) editFileRef.current.value = ''
+  }
+  
+  const onUpdateItem = () => {
+    if (!selectedList || !editingItem) return
+    const name = editDraft.name.trim()
+    if (!name) return
+    dispatch(
+      updateItem({
+        listId: selectedList.id,
+        itemId: editingItem.id,
+        changes: {
+          name,
+          quantity: Number(editDraft.quantity) || 1,
+          notes: editDraft.notes.trim() || undefined,
+          category: editDraft.category.trim(),
+          images: editDraft.images,
+        },
+      })
+    )
+    closeEditModal()
   }
 
   const items = selectedList?.items ?? []
@@ -178,14 +235,9 @@ export default function ListDetails() {
                       <td>
                         <div className='itemActions'>
                           <button
-                            onClick={() => {
-                              const name = prompt('Edit name', i.name) ?? i.name
-                              const quantity = Number((prompt('Edit quantity', String(i.quantity)) ?? i.quantity))
-                              const notes = prompt('Edit notes', i.notes ?? '') ?? i.notes
-                              const category = prompt('Edit category', i.category ?? '') ?? i.category
-                              dispatch(updateItem({ listId: selectedList!.id, itemId: i.id, changes: { name, quantity, notes: notes || undefined, category } }))
-                            }}
-                            aria-label={`Edit ${i.name}`} style={{ cursor: 'pointer', border: '1px solid green', padding: 2, borderRadius: 4}}
+                            onClick={() => openEditModal(i)}
+                            aria-label={`Edit ${i.name}`} 
+                            style={{ cursor: 'pointer', border: '1px solid green', padding: 2, borderRadius: 4}}
                           >Edit</button>
                           <button  onClick={() => dispatch(deleteItem({ listId: selectedList!.id, itemId: i.id }))} aria-label={`Delete ${i.name}`} style={{ cursor: 'pointer',border: '1px solid red', padding: 2, borderRadius: 4}}>Delete</button>
                         </div>
@@ -198,6 +250,123 @@ export default function ListDetails() {
           )}
         </section>
       </div>
+
+      {/* Edit Item Modal */}
+      {isEditModalOpen && (
+        <div className="modal-overlay" style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000
+        }}>
+          <div className="modal-content" style={{
+            backgroundColor: 'white',
+            padding: '24px',
+            borderRadius: '12px',
+            maxWidth: '500px',
+            width: '90%',
+            maxHeight: '90vh',
+            overflowY: 'auto',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h2 style={{ margin: 0 }}>Edit Item</h2>
+              <button
+                onClick={closeEditModal}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  fontSize: '24px',
+                  cursor: 'pointer',
+                  color: '#666'
+                }}
+              >
+                ×
+              </button>
+            </div>
+            
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>
+              <div>
+                <label htmlFor="edit-item-name">Name</label>
+                <input 
+                  id="edit-item-name" 
+                  value={editDraft.name} 
+                  onChange={(e) => setEditDraft((p) => ({ ...p, name: e.target.value }))} 
+                  className="input-login" 
+                />
+              </div>
+              <div>
+                <label htmlFor="edit-item-qty">Quantity</label>
+                <input 
+                  id="edit-item-qty" 
+                  type="number" 
+                  min={1} 
+                  value={editDraft.quantity} 
+                  onChange={(e) => setEditDraft((p) => ({ ...p, quantity: Number(e.target.value) }))} 
+                  className="input-login" 
+                />
+              </div>
+              <div>
+                <label htmlFor="edit-item-notes">Notes</label>
+                <input 
+                  id="edit-item-notes" 
+                  value={editDraft.notes} 
+                  onChange={(e) => setEditDraft((p) => ({ ...p, notes: e.target.value }))} 
+                  className="input-login" 
+                />
+              </div>
+              <div>
+                <label htmlFor="edit-item-category">Category</label>
+                <input 
+                  id="edit-item-category" 
+                  value={editDraft.category} 
+                  onChange={(e) => setEditDraft((p) => ({ ...p, category: e.target.value }))} 
+                  className="input-login" 
+                />
+              </div>
+              <div>
+                <label htmlFor="edit-item-images">Images</label>
+                <input 
+                  id="edit-item-images" 
+                  type="file" 
+                  accept="image/*" 
+                  multiple 
+                  onChange={onEditFilesChange} 
+                  ref={editFileRef} 
+                />
+              </div>
+            </div>
+            
+            <div style={{ marginTop: 20, display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+              <button
+                onClick={closeEditModal}
+                style={{
+                  padding: '8px 16px',
+                  border: '1px solid #ccc',
+                  backgroundColor: '#f5f5f5',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={onUpdateItem}
+                disabled={!selectedList || !editingItem}
+                className='addItem'
+              >
+                Update Item
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>

@@ -1,5 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppSelector } from '../../reduxHooks'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 export default function Profile() {
   const user = useAppSelector((s) => s.register.user)
@@ -20,8 +22,9 @@ export default function Profile() {
   }
 
   return (
-    <div>
-      {/* <Navbar/> */}
+    <div className="app-shell">
+      <Navbar/>
+      <div className="app-content">
       <div style={{ padding: '20px' }}>
         <button 
           onClick={() => navigate(-1)} 
@@ -57,7 +60,8 @@ export default function Profile() {
       
     </div>
     </div>
-    {/* <Footer/> */}
+      </div>
+    <Footer/>
     </div>
   )
 }
