@@ -10,6 +10,7 @@ interface FormState {
 }
 
 export default function ContactUs() {
+  
   const [form, setForm] = useState<FormState>({ name: '', email: '', subject: '', message: '' })
   const [errors, setErrors] = useState<Partial<FormState>>({})
   const [status, setStatus] = useState<string>('')
@@ -43,10 +44,10 @@ export default function ContactUs() {
   return (
     <div>
       <Navbar/>
-    <div className="container" style={{height:"100vh"}}>
+    <div className="container" >
     
       <form onSubmit={onSubmit}  aria-labelledby="contact-heading">
-        <h2 id="contact-heading" className="update" style={{ fontSize: 24, marginBottom: 27, marginTop: 24}}>Get in touch with us.</h2>
+        <h2 id="contact-heading" className="update" >Get in touch with us.</h2>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12, padding:'20px', backgroundColor:'#f3f4f6', borderRadius:10 }}>
           <div>
             <label htmlFor="name">Name</label>

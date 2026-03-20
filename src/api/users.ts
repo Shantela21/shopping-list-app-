@@ -18,3 +18,8 @@ export async function getUserByEmail(email: string) {
   const res = await api.get<UserDTO[]>(`/users`, { params: { email } })
   return res.data[0] ?? null
 }
+
+export async function updateUserProfile(id: number, profileData: Partial<Omit<UserDTO, 'id' | 'passwordCipher'>>) {
+  const res = await api.patch(`/users/${id}`, profileData)
+  return res.data as UserDTO
+}

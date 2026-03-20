@@ -35,10 +35,25 @@
     {
       "id": "5dec",
       "name": "Ziya",
-      "surname": "Noyila",
+      "surname": "tfhth",
       "cell": "0871234567",
       "email": "ziya@gmail.com",
       "passwordCipher": "U2FsdGVkX1+mBRoMdqLW9QcDjzUcUry4gnLMSZs/JcA="
+    },
+    {
+      "name": "Beyonce ",
+      "surname": "Carter",
+      "cell": "0871234567",
+      "email": "beyonce@gmail.com",
+      "id": "14d5"
+    },
+    {
+      "id": "79e8",
+      "name": "Dlozi",
+      "surname": "Mthembu",
+      "cell": "0987654321",
+      "email": "dlozi@gmail.com",
+      "passwordCipher": "U2FsdGVkX1/OM2oIguPLkhnB5pK9osZ5uLCMgbt3zxw="
     }
   ],
   "shoppingLists": [
