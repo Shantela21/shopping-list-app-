@@ -384,6 +384,119 @@ export default function Home() {
       </div>
       </div>
       </div>
+      
+      {/* Add List Modal */}
+      {isAddListModalOpen && (
+        <div className="modal-overlay" style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000
+        }}>
+          <div className="modal-content" style={{
+            backgroundColor: 'white',
+            padding: '24px',
+            borderRadius: '12px',
+            maxWidth: '500px',
+            width: '90%',
+            maxHeight: '90vh',
+            overflowY: 'auto',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h2 style={{ margin: 0 }}>Create New List</h2>
+              <button
+                onClick={closeAddListModal}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  fontSize: '24px',
+                  cursor: 'pointer',
+                  color: '#666'
+                }}
+              >
+                ×
+              </button>
+            </div>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div>
+                <label htmlFor="new-list-name">List Name</label>
+                <input 
+                  id="new-list-name" 
+                  value={newListName} 
+                  onChange={(e) => setNewListName(e.target.value)} 
+                  className="input-login"
+                  placeholder="Enter list name"
+                  autoFocus
+                />
+              </div>
+              <div>
+                <label htmlFor="list-cover-image">Cover Image (Optional)</label>
+                <input 
+                  id="list-cover-image"
+                  ref={listCoverRef}
+                  type="file" 
+                  accept="image/*" 
+                  onChange={async (e) => {
+                    const f = e.target.files?.[0]
+                    if (!f) { setNewListImage(null); return }
+                    const reader = new FileReader()
+                    reader.onload = () => setNewListImage(String(reader.result))
+                    reader.readAsDataURL(f)
+                  }}
+                />
+              </div>
+              {newListImage && (
+                <div style={{ marginTop: 12 }}>
+                  <p style={{ fontSize: 14, color: '#666', marginBottom: 8 }}>Cover Preview:</p>
+                  <img 
+                    src={newListImage || ''} 
+                    alt="List cover preview" 
+                    style={{ 
+                      width: '100%', 
+                      maxHeight: '150px', 
+                      objectFit: 'cover', 
+                      borderRadius: '8px',
+                      border: '1px solid #e0e0e0'
+                    }} 
+                  />
+                </div>
+              )}
+            </div>
+            
+            <div style={{ marginTop: 20, display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+              <button
+                onClick={closeAddListModal}
+                style={{
+                  padding: '8px 16px',
+                  border: '1px solid #ccc',
+                  backgroundColor: '#f5f5f5',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={onCreateList}
+                disabled={!newListName.trim()}
+                className='addListBtn'
+                style={{ width: 'auto', padding: '8px 16px' }}
+              >
+                Create List
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
     <Footer />
     </div>
   )
