@@ -22,32 +22,42 @@ const initialState: RegisterState = {
 }
 
 const RegisterSlice = createSlice({
-  name: 'register',
+  name: "register",
   initialState,
   reducers: {
     register: (state, action: { payload: RegisteredUser }) => {
-      state.user = action.payload
-      state.isRegistered = true
+      state.user = action.payload;
+      state.isRegistered = true;
     },
     setUser: (state, action: { payload: RegisteredUser | null }) => {
-      state.user = action.payload
+      state.user = action.payload;
     },
     loginSuccess: (state) => {
-      state.isAuthenticated = true
+      state.isAuthenticated = true;
     },
     logout: (state) => {
-      state.isAuthenticated = false
+      state.isAuthenticated = false;
     },
-    updateProfile: (state, action: { payload: Pick<RegisteredUser, 'name' | 'surname' | 'cell' | 'email'> }) => {
-      if (!state.user) return
-      state.user = { ...state.user, ...action.payload }
+    updateProfile: (
+      state,
+      action: {
+        payload: Pick<RegisteredUser, "name" | "surname" | "cell" | "email">;
+      },
+    ) => {
+      if (!state.user) return;
+      state.user = { ...state.user, ...action.payload };
     },
-    updateCredentials: (state, action: { payload: { passwordCipher: string } }) => {
-      if (!state.user) return
-      state.user.passwordCipher = action.payload.passwordCipher
+    updateCredentials: (
+      state,
+      action: { payload: { email: string; passwordCipher: string } },
+    ) => {
+      if (!state.user) return;
+
+      state.user.email = action.payload.email;
+      state.user.passwordCipher = action.payload.passwordCipher;
     },
   },
-})
+});
 
 export const { register, setUser, loginSuccess, logout, updateProfile, updateCredentials } = RegisterSlice.actions
 export default RegisterSlice.reducer

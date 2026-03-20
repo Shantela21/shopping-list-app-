@@ -38,7 +38,7 @@ export default function EditProfile() {
       // 🔹 Update backend
       await updateUserProfile(user.id, { name, surname, cell, email });
 
-      // 🔹 Create updated user object
+      // 🔹 Create updated user
       const updatedUser = {
         ...user,
         name,
@@ -60,7 +60,7 @@ export default function EditProfile() {
     }
   };
 
-  // ✅ SAVE PASSWORD
+  // ✅ SAVE PASSWORD + EMAIL
   const saveCredentials = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setCredError(null);
@@ -88,15 +88,22 @@ export default function EditProfile() {
 
     const passwordCipher = CryptoJS.AES.encrypt(newPassword, SECRET).toString();
 
-    // 🔹 Update Redux
-    dispatch(updateCredentials({ passwordCipher }));
+    // 🔹 Update Redux (EMAIL + PASSWORD)
+    dispatch(
+      updateCredentials({
+        email: email,
+        passwordCipher,
+      }),
+    );
 
-    // 🔥 Persist to localStorage
+    // 🔥 Create updated user
     const updatedUser = {
       ...user,
+      email,
       passwordCipher,
     };
 
+    // 🔥 Persist to localStorage
     localStorage.setItem("user", JSON.stringify(updatedUser));
 
     setCurrentPassword("");
@@ -165,6 +172,7 @@ export default function EditProfile() {
           <button className="updateBtn" type="submit">
             Save profile
           </button>
+
           {profSaved && <p role="status">Profile updated</p>}
         </form>
 
@@ -217,6 +225,7 @@ export default function EditProfile() {
           <button className="updateBtn" type="submit">
             Update password
           </button>
+
           {credSaved && <p role="status">Password updated</p>}
         </form>
       </div>
